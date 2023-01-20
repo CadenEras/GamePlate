@@ -13,7 +13,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "bases.h"
+#include "checkerGame.h"
 
 enum HighlighterType {
 	HIGHLIGHTER_TYPE_NONE,
@@ -22,6 +22,8 @@ enum HighlighterType {
 	HIGHLIGHTER_TYPE_SELECTED,
 	HIGHLIGHTER_TYPE_NEXT_POSSIBLE_POSITION,
 };
+
+
 
 void printBoard(SDL_Surface *screen, GridType grid[][8]);
 void initBoard(GridType grid[][8]);

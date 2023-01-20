@@ -10,14 +10,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 #include "interface.h"
 #include "bases.h"
 
-void initGame(SDL_Surface *screen);
-Position getMousePosition(SDL_Surface *screen);
+void initGame(SDL_Surface *screen, SDL_Window *window);
+Position getMousePosition(SDL_Window *window);
 int isPieceSelected(int turn, GridType grid[][8], Position mousePosition);
 int isDestinationValid(int turn, GridType grid[][8], Position from, Position dest);
 void updateGrid(int turn, GridType grid[][8], Position from, Position dest);

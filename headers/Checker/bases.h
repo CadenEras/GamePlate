@@ -7,6 +7,9 @@
 
 #pragma once
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 #define SQUARE_NUMBER 8
 #define RED 1
 #define BLACK 2
