@@ -1,6 +1,19 @@
-cmake_minimum_required(VERSION 3.24)
-project(c_pas_cool_gameplate C)
+cmake_minimum_required(VERSION 3.0.0)
+project(GamePlate VERSION 0.1.0)
 
-set(CMAKE_C_STANDARD 17)
+include(CTest)
+enable_testing()
 
-add_executable(c_pas_cool_gameplate main.c headers/Checker/bases.h headers/Checker/interface.h headers/Checker/checkerGame.h sources/Checker/checkerGame.c sources/Checker/interface.c)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake-findsdl/")
+
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
+
+add_executable(GamePlate main.c sources/Checker/checkerGame.c sources/Checker/interface.c)
+target_link_libraries(GamePlate ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
+
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+
+include(CPack)

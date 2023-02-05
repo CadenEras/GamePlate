@@ -14,6 +14,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "checkerGame.h"
+#include "bases.h"
 
 enum HighlighterType {
 	HIGHLIGHTER_TYPE_NONE,

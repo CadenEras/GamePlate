@@ -4,6 +4,7 @@
 
 #include "../../headers/Checker/checkerGame.h"
 #include "../../headers/Checker/interface.h"
+#include "../../headers/Checker/bases.h"
 
 void initGame(SDL_Surface *screen, SDL_Window *window) {
 	GridType grid[8][8];

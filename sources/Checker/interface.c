@@ -52,7 +52,7 @@ void printBoard(SDL_Surface *screen, GridType grid[][8]) {
 	SDL_RenderPresent((SDL_Renderer *) screen);
 }
 
-void initGame(GridType grid[][8]) {
+void initBoard(GridType grid[][8]) {
 	int blit = -1;
 	
 	for (int i = 0; i < SQUARE_NUMBER; ++i) {

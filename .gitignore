@@ -1,4 +1,4 @@
-### C template
+### Gitignore C template ajusted for GamePlate project on VS Code and Jetbrains IDEs using CMake files
 # Prerequisites
 *.d
 
@@ -105,6 +105,7 @@ Mkfile.old
 dkms.conf
 
 # CMake
+.cmake
 cmake-build-debug/
 CMakeLists.txt.user
 CMakeCache.txt
@@ -119,7 +120,7 @@ CTestTestfile.cmake
 _deps
 
 # VSCode
-.vscode/*
+.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -131,3 +132,7 @@ _deps
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Customs for GamePlate project
+build
+cmake-findsdl
