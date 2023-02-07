@@ -26,8 +26,8 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "SDL could not create the renderer => SDL_Error: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
-	
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
+	screen = SDL_CreateRGBSurface(0, 800, 800, 32, 0, 0, 0, 255);
+	SDL_FillRect(screen, NULL, SDL_MapRGBA(screen->format, 255, 255, 255, 255));
 	initGame(screen, window);
 	//Don't forget to free everything !!
 	//cleanEverything(window);
