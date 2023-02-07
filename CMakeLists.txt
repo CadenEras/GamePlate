@@ -10,7 +10,7 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
 
-add_executable(GamePlate main.c sources/Checker/checkerGame.c sources/Checker/interface.c)
+add_executable(GamePlate main.c sources/Checker/checkerGame.c sources/Checker/interface.c sources/base/window.c)
 target_link_libraries(GamePlate ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

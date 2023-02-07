@@ -134,5 +134,3 @@ _deps
 *.vsix
 
 # Customs for GamePlate project
-build
-cmake-findsdl
