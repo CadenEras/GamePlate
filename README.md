@@ -14,6 +14,8 @@ sudo apt-get install build-essential
 </br>
 sudo apt-get install cmake
 </br>
+sudo apt install libsdl2-gfx-dev
+</br>
 
 </br>
 
