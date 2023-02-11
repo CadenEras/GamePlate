@@ -4,6 +4,14 @@ GamePlate is written in C and is a simple multiplayer game application. It is de
 
 </br>
 
+# ⏳ Compilation 
+
+Commande temporaire :
+</br>
+gcc main.c -o main.out $(sdl2 -config --cflags --libs)
+
+</br>
+
 # 🔌 Installation SDL2 et Cmake Linux 
 
 sudo apt-get update
