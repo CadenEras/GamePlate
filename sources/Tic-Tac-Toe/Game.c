@@ -1,149 +1,82 @@
 #include <stdlib.h>
 #include <stdio.h>
+
+#include <SDL2/SDL.h>
+
 #include "../../headers/Tic-Tac-Toe/Game.h"
+#include "../../headers/Tic-Tac-Toe/Logic.h"
+#include "rendering.h"
 
-
-char board[3][3];
-const char PLAYER = 'X';
-const char COMPUTER = 'O';
-
-void resetBoard(){
-    for(int i =0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            board[i][j] = ' ';
-        }
+int main(int argc, char *argv[])
+{
+    // initialisation de la SDL
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        fprintf(stderr, "Could not initialize sdl2: %s\n", SDL_GetError());
+        return EXIT_FAILURE;
     }
-};
 
+    // Création de la fenêtre
+    SDL_Window *window = SDL_CreateWindow("Tic Tac Toe",
+                                          1280, 800,
+                                          SCREEN_WIDTH, SCREEN_HEIGHT,
+                                          SDL_WINDOW_SHOWN);
 
+    // Gestions des erreurs
+    if (window == NULL) {
+        fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
+        return EXIT_FAILURE;
+    }
 
+    // contient les informations du contexte d'affichage
+    // déclarant un pointeur sur un renderer ( plus pratique)
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,
+                                                //acceler la carte graphique
+                                                SDL_RENDERER_ACCELERATED |
+                                                // synchronisation du rendu avec la fréquence de rafraichissement de l'écran
+                                                SDL_RENDERER_PRESENTVSYNC);
+    // gestion des erreurs
+    if (renderer == NULL) {
+        SDL_DestroyWindow(window);
+        fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
+        return EXIT_FAILURE;
+    }
 
-void printBoard(){
-    printf(" %c | %c | %c ", board[0][0], board[0][1], board[0][2]);
-    printf("\n---|---|---\n");
-    printf(" %c | %c | %c ", board[1][0], board[1][1], board[1][2]);
-    printf("\n---|---|---\n");
-    printf(" %c | %c | %c ", board[2][0], board[2][1], board[2][2]);
-    printf("\n");
-};
+    // initialisation du jeu avec les cellules vides
+    game_t game = {
+        .board = { EMPTY, EMPTY, EMPTY,
+                   EMPTY, EMPTY, EMPTY,
+                   EMPTY, EMPTY, EMPTY },
+        .player = PLAYER_X,
+        .state = RUNNING_STATE
+    };
 
+    // boucle d'événements qui s'arrête quand on clique sur le bouton
+    SDL_Event e;
+    while (game.state != QUIT_STATE) {
+        while (SDL_PollEvent(&e)) {
+            switch (e.type) {
+            case SDL_QUIT:
+                game.state = QUIT_STATE;
+                break;
 
+            case SDL_MOUSEBUTTONDOWN:
+                click_on_cell(&game,
+                              e.button.y / CELL_HEIGHT,
+                              e.button.x / CELL_WIDTH);
+                break;
 
-
-
-int checkFreeSpaces(){
-    int freeSpaces = 9;
-
-    for(int i =0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            if(board[i][j] != ' '){
-                freeSpaces--;
+            default: {}
             }
         }
-    }
-    return freeSpaces;
-};
 
-
-
-
-
-void playerMove(){
-    int x;
-    int y;
-
-    do {
-        printf("Enter row(1-3): ");
-        scanf("%d", &x);
-        x--;
-
-        printf("Enter column(1-3): ");
-        scanf("%d", &y);
-        y--;
-
-        if(board[x][y] != ' '){
-            printf("Invalid move, try again\n");
-        }
-        else {
-            board[x][y] = PLAYER;
-            break;
-        }
-    } while(board[x][y] != ' ');
-
-};
-
-
-
-
-
-
-void computerMove(){
-
-    //creates a seed based on current time
-    srand(time(NULL));
-    int x;
-    int y;
-
-    if(checkFreeSpaces() > 0){
-        do {
-            x = rand() % 3;
-            y = rand() % 3;
-        } while(board[x][y] != ' ');
-
-        board[x][y] = COMPUTER;
-    }
-    else {
-        printWinner(' ');
-    }
-};
-
-
-
-
-
-
-
-char checkWin(){
-
-    //check rows
-    for(int i = 0; i < 3; i++){
-        if(board[i][0] == board[i][1] && board[i][0] == board[i][2]){
-            return board[i][0];
-        }
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+        render_game(renderer, &game);
+        SDL_RenderPresent(renderer);
     }
 
-    //check columns
-    for(int i = 0; i < 3; i++){
-        if(board[0][i] == board[1][i] && board[0][i] == board[2][i]){
-            return board[0][i];
-        }
-    }
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 
-    //check diagonals
-    if(board[0][0] == board[1][1] && board[0][0] == board[2][2]){
-        return board[0][0];
-    }
-    if(board[0][2] == board[1][1] && board[0][0] == board[2][0]){
-        return board[0][2];
-    }
-
-    return ' ';
-};   
-
-
-
-
-
-
-void printWinner(char winner){
-
-    if(winner == PLAYER){
-        printf("YOU WIN\n");
-    }
-    else if (winner == COMPUTER){
-        printf("YOU LOSE\n");
-    }
-    else {
-        printf("TIE\n");
-    }
-};
+    return EXIT_SUCCESS;
+}
