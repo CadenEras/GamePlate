@@ -1,4 +1,4 @@
-// gcc sources/Tic-Tac-Toe/Game.c sources/Tic-Tac-Toe/Logic.c sources/Tic-Tac-Toe/Rendering.c -o main.out $(sdl2-config --cflags --libs)
+// gcc sources/Tic-Tac-Toe/Game.c sources/Tic-Tac-Toe/Logic.c sources/Tic-Tac-Toe/Rendering.c -o main.out $(sdl2-config --cflags --libs) -lm
 
 
 #include <stdlib.h>
@@ -49,7 +49,9 @@ int main(int argc, char *argv[])
         .board = { EMPTY, EMPTY, EMPTY,
                    EMPTY, EMPTY, EMPTY,
                    EMPTY, EMPTY, EMPTY },
+        // le joueur X commence
         .player = PLAYER_X,
+        // le jeu est en cours
         .state = RUNNING_STATE
     };
 
@@ -65,6 +67,8 @@ int main(int argc, char *argv[])
                 game.state = QUIT_STATE;
                 break;
 
+            // à chaque itération on vérifie si le joueur a cliqué sur une cellule
+            // si oui on appelle la fonction click_on_cell et on lui donne les coordonnées de la cellule cliquée
             case SDL_MOUSEBUTTONDOWN:
                 click_on_cell(&game,
                               e.button.y / CELL_HEIGHT,
