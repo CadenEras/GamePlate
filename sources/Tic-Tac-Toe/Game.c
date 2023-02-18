@@ -1,3 +1,6 @@
+// gcc sources/Tic-Tac-Toe/Game.c sources/Tic-Tac-Toe/Logic.c sources/Tic-Tac-Toe/Rendering.c -o main.out $(sdl2-config --cflags --libs)
+
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -5,7 +8,7 @@
 
 #include "../../headers/Tic-Tac-Toe/Game.h"
 #include "../../headers/Tic-Tac-Toe/Logic.h"
-#include "rendering.h"
+#include "../../headers/Tic-Tac-Toe/Rendering.h"
 
 int main(int argc, char *argv[])
 {
@@ -51,8 +54,11 @@ int main(int argc, char *argv[])
     };
 
     // boucle d'événements qui s'arrête quand on clique sur le bouton
+    // variable qui contient les événements en cours de traitement
+    // et un indicateur qui indiquera qu'il est temps de rompre la boucle
     SDL_Event e;
     while (game.state != QUIT_STATE) {
+        // extraction des événements de la file d'événements et activation de leurs types
         while (SDL_PollEvent(&e)) {
             switch (e.type) {
             case SDL_QUIT:

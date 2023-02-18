@@ -1,17 +1,20 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+
 // macro pour creer la grille de jeu
 #define N 3
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 800
 #define CELL_WIDTH (SCREEN_WIDTH / N)
 #define CELL_HEIGHT (SCREEN_HEIGHT / N)
+
 
 // champs de la grille de jeu
 #define EMPTY 0
 #define PLAYER_X 1
 #define PLAYER_O 2
+
 
 // état du jeu
 #define RUNNING_STATE 0
@@ -19,6 +22,7 @@
 #define PLAYER_O_WON_STATE 2
 #define TIE_STATE 3
 #define QUIT_STATE 4
+
 
 // structure qui contient les informations du jeu
 typedef struct {

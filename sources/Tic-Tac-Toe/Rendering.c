@@ -73,40 +73,19 @@ void render_o(SDL_Renderer *renderer,
     const float half_box_side = fmin(CELL_WIDTH, CELL_HEIGHT) * 0.25;
     const float center_x = CELL_WIDTH * 0.5 + column * CELL_WIDTH;
     const float center_y = CELL_HEIGHT * 0.5 + row * CELL_HEIGHT;
-    int radius;
-    const int diameter = (radius * 2);
-    int x = (radius - 1);
-    int y = 0;
-    int tx = 1;
-    int ty = 1;
-    int error = (tx - diameter);
 
-    while (x >= y)
-    {
-        //  Each of the following renders an octant of the circle
-        SDL_RenderDrawPoint(renderer, center_x + x, center_y - y);
-        SDL_RenderDrawPoint(renderer, center_x + x, center_y + y);
-        SDL_RenderDrawPoint(renderer, center_x - x, center_y - y);
-        SDL_RenderDrawPoint(renderer, center_x - x, center_y + y);
-        SDL_RenderDrawPoint(renderer, center_x + y, center_y - x);
-        SDL_RenderDrawPoint(renderer, center_x + y, center_y + x);
-        SDL_RenderDrawPoint(renderer, center_x - y, center_y - x);
-        SDL_RenderDrawPoint(renderer, center_x - y, center_y + x);
 
-        if (error <= 0)
-        {
-            ++y;
-            error += ty;
-            ty += 2;
-        }
+     SDL_RenderDrawLine(renderer,
+                center_x - half_box_side,
+                center_y - half_box_side,
+                center_x + half_box_side,
+                center_y + half_box_side);
 
-        if (error > 0)
-        {
-            --x;
-            tx += 2;
-            error += (tx - diameter);
-        }
-    }
+    SDL_RenderDrawLine(renderer,
+                center_x + half_box_side,
+                center_y - half_box_side,
+                center_x - half_box_side,
+                center_y + half_box_side);
 }
 
     // filledCircleRGBA(renderer,
