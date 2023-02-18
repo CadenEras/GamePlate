@@ -1,9 +1,10 @@
 #define SDL_MAIN_HANDLED
 
 #include "headers/Checker/interface.h"
+#include "headers/base/window.h"
 
 int main(int argc, char *argv[]) {
-	SDL_Window *window = NULL;
+
 	SDL_Surface *screen = NULL;
 	
 	SDL_Init(SDL_INIT_VIDEO);
@@ -19,10 +20,9 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 	//Create the render window
-	window = SDL_CreateWindow("GamePlate", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_SHOWN);
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+	Window *window = createWindow();
 	
-	if (renderer == NULL) {
+	if (window->renderer == NULL) {
 		fprintf(stderr, "SDL could not create the renderer => SDL_Error: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
@@ -31,8 +31,8 @@ int main(int argc, char *argv[]) {
 	initGame(screen, window);
 	//Don't forget to free everything !!
 	//cleanEverything(window);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(window->renderer);
+	SDL_DestroyWindow(window->window);
 	SDL_Quit();
 	IMG_Quit();
 	
