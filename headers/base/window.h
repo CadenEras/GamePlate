@@ -1,13 +1,11 @@
 /**
- * \file window.h
- * \author Melissa GRIES
- * \brief Implementation of the window.
+ * @file window.h
+ * @author Melissa GRIES
+ * @brief Implementation of the window.
  */
 
 #ifndef WINDOW_H
 #define WINDOW_H
-
-#pragma once
 
 #include <SDL2/SDL.h>
 
@@ -15,8 +13,7 @@
 #define SCREEN_HEIGHT 500
 
 /**
- * \fn typedef struct Window
- * \brief Stores the main window and the renderer.
+ * @brief Stores the main window and the renderer.
  */
 typedef struct Window {
     SDL_Window *window;
@@ -25,16 +22,20 @@ typedef struct Window {
 } Window;
 
 /**
- * \fn Window *createWindow()
- * \brief Create the window.
+ * @brief Create the window.
  */
 Window *createWindow();
 
 /**
- * \fn void destroyWindow(Window *window)
- * \brief Destroy the Window.
- * \param window The Window to destroy.
+ * @brief Destroy the Window.
+ * @param window The Window to destroy.
  */
 void destroyWindow(Window *window);
+
+/**
+ * @brief Update the Window with a rendering context.
+ * @param window The Window to update.
+ */
+void updateWindow(Window *window);
 
 #endif /* WINDOW_H */

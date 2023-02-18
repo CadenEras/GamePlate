@@ -1,6 +1,7 @@
 #define SDL_MAIN_HANDLED
 
 #include "headers/Checker/interface.h"
+#include "headers/Checker/bases.h"
 #include "headers/base/window.h"
 
 int main(int argc, char *argv[]) {
@@ -27,12 +28,13 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 	screen = SDL_CreateRGBSurface(0, 800, 800, 32, 0, 0, 0, 255);
+
 	SDL_FillRect(screen, NULL, SDL_MapRGBA(screen->format, 255, 255, 255, 255));
-	initGame(screen, window);
+	SDL_UpdateWindowSurface(window->window);
+	mainChecker(window);
 	//Don't forget to free everything !!
 	//cleanEverything(window);
-	SDL_DestroyRenderer(window->renderer);
-	SDL_DestroyWindow(window->window);
+	destroyWindow(window);
 	SDL_Quit();
 	IMG_Quit();
 	

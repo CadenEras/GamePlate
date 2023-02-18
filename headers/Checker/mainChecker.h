@@ -7,12 +7,13 @@
 #ifndef C_PAS_COOL_GAMEPLATE_MAINCHECKER_H
 #define C_PAS_COOL_GAMEPLATE_MAINCHECKER_H
 
-#pragma once
+
+//#include "interface.h"
 
 /**
  * @brief Main function for Checker game.
  * @return a int indicating if the function was succesful (0) or not.
  */
-int mainChecker();
+int mainChecker(Window *window);
 
 #endif //C_PAS_COOL_GAMEPLATE_MAINCHECKER_H

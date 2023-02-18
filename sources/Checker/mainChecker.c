@@ -10,8 +10,10 @@
 #include <math.h>
 
 #include "../../headers/Checker/interface.h"
+#include "../../headers/Checker/mainChecker.h"
+#include "../../headers/Checker/bases.h"
 
-int mainChecker() {
+int mainChecker(Window *window) {
 	int quitGame, activeWindow, mainMenu, gameWindow, pauseMenu,
 			pos, click, posPause, noClick, diffX, diffY,
 			playMove, player2, clickSelectPlayer;
@@ -52,14 +54,14 @@ int mainChecker() {
 	while (quitGame) {
 		switch (activeWindow) {
             case 0: //Fenetre Menu principal
-                displayMainCheckerMenu(pos);
+                displayMainCheckerMenu(pos, window);
                 while (mainMenu) {
                     while (SDL_PollEvent(&event)) {
                         switch (event.type) {
                             case SDL_KEYDOWN:
                                 switch (event.key.keysym.sym) {
                                     case SDLK_a:
-                                        displayMainCheckerMenu(0);
+                                        displayMainCheckerMenu(0, window);
                                         break;
                                     case SDLK_b:
                                         mainMenu = 0;
@@ -75,13 +77,13 @@ int mainChecker() {
                                 }//Fin switch touche choisi
                             case SDL_MOUSEMOTION:
                                 pos = mousePosition(event);
-                                displayMainCheckerMenu(pos);
+                                displayMainCheckerMenu(pos, window);
                                 break;
                                 //Fin du cas : la souris bouge
                             case SDL_MOUSEBUTTONUP:
                                 switch (event.button.button) {
                                     case SDL_BUTTON_LEFT:
-                                        click = mouseClick_menu(event);
+                                        click = mouseClickMenu(event);
                                         switch (click) {
                                             case 1:
                                                 // Clique sur commencer partie
@@ -115,9 +117,9 @@ int mainChecker() {
                 }
                 break;
             case 1: //Fenetre Jeu
-                initWhiteTiles();
-                refreshBoard();
-                SDL_Flip(screen);
+                initWhiteTiles(window);
+                refreshBoard(window);
+                SDL_UpdateWindowSurface(window->window);
                 while (gameWindow) {
                     while (SDL_PollEvent(&event) && !isFinished()) {
                         switch (event.type) {
@@ -135,8 +137,8 @@ int mainChecker() {
                                                 }
                                                 if (!tour_ia) {*/
                                                     arrC = mouseClick(event); // Recupère les coordonnees du premier click
-                                                    refreshBoard();
-                                                    SDL_Flip(screen);
+                                                    refreshBoard(window);
+                                                    SDL_UpdateWindowSurface(window->window);
                                                     startTile = getTilePosition(arrC[0], arrC[1], boardGame);
                                                     int click_ok = highlightPossibleMovesXY(arrC[0], arrC[1]); // Une fois le pion selectionne, cela affiche les deplacements possibles
                                                     printf("Premier click reussi \n");
@@ -149,15 +151,15 @@ int mainChecker() {
                                                     ongoingTurn = 0;
                                                     tour_ia = 0;
                                                 }*/
-                                                refreshBoard();
-                                                SDL_Flip(screen);
+                                                refreshBoard(window);
+                                                SDL_UpdateWindowSurface(window->window);
                                             } else {
                                                 if (noClick == 1) { //Deuxieme click
                                                     arrC = mouseClick(event); // Recupère les coordonnees du deuxieme click
                                                     middleTile = getTilePosition(arrC[0], arrC[1], boardGame);
                                                     playMove = playMoveXY(startTile.x, startTile.y, middleTile.x, middleTile.y); //On joue le coup
-                                                    refreshBoard();
-                                                    SDL_Flip(screen);
+                                                    refreshBoard(window);
+                                                    SDL_UpdateWindowSurface(window->window);
                                                     switch (playMove) {
                                                         case 0:
                                                             player2 = 0;
@@ -192,8 +194,8 @@ int mainChecker() {
                                                     }
                                                     if (!tour_ia) {*/
                                                         arrC = mouseClick(event); // Recupère les coordonnees du premier click
-                                                        refreshBoard();
-                                                        SDL_Flip(screen);
+                                                        refreshBoard(window);
+                                                        SDL_UpdateWindowSurface(window->window);
                                                         startTile = getTilePosition(arrC[0], arrC[1], boardGame);
                                                         int click_ok = highlightPossibleMovesXY(arrC[0], arrC[1]);
                                                         printf("Premier click reussi \n");
@@ -206,8 +208,8 @@ int mainChecker() {
                                                         ongoingTurn = 0;
                                                         tour_ia = 0;
                                                     }*/
-                                                    refreshBoard();
-                                                    SDL_Flip(screen);
+                                                    refreshBoard(window);
+                                                    SDL_UpdateWindowSurface(window->window);
                                                 } else {
                                                     if (noClick == 1) { //Deuxieme click
                                                         arrC = mouseClick(event);
@@ -217,8 +219,8 @@ int mainChecker() {
                                                                 startTile.y,
                                                                 middleTile.x,
                                                                 middleTile.y);
-                                                        refreshBoard();
-                                                        SDL_Flip(screen);
+                                                        refreshBoard(window);
+                                                        SDL_UpdateWindowSurface(window->window);
                                                         switch (playMove) {
                                                             case 0:
                                                                 player2 = 1;
@@ -262,8 +264,8 @@ int mainChecker() {
                                         break;
                                     case SDLK_h:
                                         highlightPlayablePawns();
-                                        refreshBoard();
-                                        SDL_Flip(screen);
+                                        refreshBoard(window);
+                                        SDL_UpdateWindowSurface(window->window);
                                         break;
                                     default:
                                         quitGame = 1;
@@ -275,7 +277,7 @@ int mainChecker() {
                 }
                 break;
             case 2: //Fentre Menu Pause
-                displayPauseCheckerScreen(posPause);
+                displayPauseCheckerScreen(posPause, window);
                 while (pauseMenu) {
                     while (SDL_PollEvent(&event)) {
                         switch (event.type) {
@@ -290,7 +292,7 @@ int mainChecker() {
                                 }//Fin switch Keydown
                             case SDL_MOUSEMOTION:
                                 posPause = mousePositionPause(event);
-                                displayPauseCheckerScreen(posPause);
+                                displayPauseCheckerScreen(posPause, window);
                             case SDL_MOUSEBUTTONUP:
                                 switch (event.button.button) {
                                     case SDL_BUTTON_LEFT:
@@ -306,7 +308,6 @@ int mainChecker() {
                                                 gameWindow = 1;
                                                 pauseMenu = 0;
                                                 activeWindow = 1;
-
                                                 break;
                                             case 3:
                                                 pauseMenu = 0;
@@ -325,9 +326,9 @@ int mainChecker() {
                 break;
             case 3: // Fin de partie
                 if (isFinished() == 1) {
-                    displayWhiteWin();
+                    displayWhiteWin(window);
                 } else {
-                    displayBlackWin();
+                    displayBlackWin(window);
                 }
                 while (SDL_PollEvent(&event)) {
                     switch (event.type) {
@@ -353,8 +354,6 @@ int mainChecker() {
 	printf("11) Fin du test \n");
 	free(arrC);
 	free(arrC2);
-	SDL_FreeSurface(screen);
-	SDL_Quit();
 
 	return 0;
 }

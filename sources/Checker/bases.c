@@ -5,6 +5,7 @@
  */
 
 #include "../../headers/Checker/interface.h"
+#include "../../headers/Checker/bases.h"
 
 Board newBoard(Player p1, Player p2) {
 	Board b;
@@ -142,7 +143,7 @@ void resetHighlight(Board *b) {
 	}
 }
 
-void Board_appliquer_coup(Move c, Board *b) {
+void applyMove(Move c, Board *b) {
 	BoardTile *tiles = b->tiles;
 
 	if(tiles[c.oldTile].isFree || !tiles[c.newTile].isFree) {
@@ -153,7 +154,7 @@ void Board_appliquer_coup(Move c, Board *b) {
 		if(c.type == capture) {	/* puis, si le coup est une prise, on prend le(s) pawn(s) */
 			int i;
 			for(i = 0; i < c.noTaken; i++) {
-				Board_prendre_pawn(c.taken[i].officialRating, b);
+				capturePawnOnBoard(c.taken[i].officialRating, b);
 			}
 		}
 
@@ -171,7 +172,7 @@ void Board_appliquer_coup(Move c, Board *b) {
 		// @todo printf de debug a supprimer
 		printf("\n------------------------\n");
 		printf("\nCoup appliqué :\n");
-		printypeoup(c);
+		//printBoardTest(c);
 		printf("\n------------------------\n");
 	}
 }
@@ -239,12 +240,12 @@ void displayMove(const Move c) {
 	if ((c.oldTile == 0) && (c.newTile == 0)) {
 		/* on tombe normalement jamais dessus mais utile au debug */
 		printf("coup bidon");
-	} else {
+	} /*else {
 		printf("de [%d] vers [%d]\n", c.oldTile, c.newTile);
 		printf("parcours du coup:\n");
 		int i;
 		for (i = 0; i < c.noTaken; i++) {
-			print_case(c.path[i]);
+			print(c.path[i]);
 		}
 		printf("la position des pawns pris:\n");
 		i = 0;
@@ -253,7 +254,7 @@ void displayMove(const Move c) {
 		}
 		printf("noTaken: %d\n", c.noTaken - 1);
 		printf("type coup: %d\n", c.type);
-	}
+	}*/
 }
 
 // @TODO delete this
@@ -276,7 +277,7 @@ void displayMoveAvailable(Move *l) {
 	int a = 1;
 	while (ptr->oldTile != 0 && ptr->newTile != 0) {
 		printf("[%d]----~\n", a);
-		printypeoup(*ptr);
+		//printypeoup(*ptr);
 		ptr++;
 		a++;
 	}

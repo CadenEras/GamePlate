@@ -7,8 +7,6 @@
 #ifndef C_PAS_COOL_GAMEPLATE_BASES_H
 #define C_PAS_COOL_GAMEPLATE_BASES_H
 
-#pragma once
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -34,7 +32,7 @@ typedef enum MoveType {
 typedef struct Pawn {
 	Color color;
 	int isKing;
-	int isHighlighted
+	int isHighlighted;
 } Pawn;
 
 /**
@@ -94,9 +92,6 @@ typedef struct Board {
 	Player player2;
 	Player turn; // Which player is to play the next turn.
 } Board;
-
-// The board we will use
-Board board;
 
 /**
  * @brief Fonction de création d'un nouveau Board.

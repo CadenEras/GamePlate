@@ -7,22 +7,17 @@
 #ifndef C_PAS_COOL_GAMEPLATE_CHECKERGAME_H
 #define C_PAS_COOL_GAMEPLATE_CHECKERGAME_H
 
-#pragma once
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h> /* pour NULL */
 
-#include "interface.h"
+//#include "interface.h"
 #include "bases.h"
-#include "../base/window.h"
+//#include "../base/window.h"
 
 #define NOMOVES 2000
 #define NOMEVEMENTS 2
-
-/** Le Board de jeu qui sera utilisé tout au long de la partie. (Ne pas utiliser en dehors de moteur.c, utilisez ::get_Board()) */
-Board boardGame;
 
 /**
  * @brief Initialise une nouvelle partie.

@@ -5,6 +5,9 @@
  */
 
 #include "../../headers/Checker/interface.h"
+#include "../../headers/Checker/bases.h"
+
+Board boardGame;
 
 /** Permet de savoir si un coup non terminé de la part du joueur est en cours. (Ne pas utiliser en dehors de moteur.c) */
 int actualMove = 0;
@@ -533,7 +536,7 @@ Move *possibleMove(const BoardTile t, const Board b) {
 		}
 	}
 	/* on ajoute aussi les deplacements possibles */
-	Move *movements = get_deplacements(t, b);
+	Move *movements = getMovement(t, b);
 	while((movements->oldTile != 0) && (movements->newTile != 0)) {
 		move[cntMove++] = *movements;
 		movements++;
@@ -670,7 +673,7 @@ Move *completeKingMove(const Move m, int mvt, Board b) {
 					nextBoard = b;
 					capturePawnOnBoard(takenTile.officialRating, &nextBoard);
 					movePawnOnBoard(m.newTile, newTile.officialRating, &nextBoard);
-					Move *completedMove = ompleter_coup_dame(move, 3, nextBoard);
+					Move *completedMove = completeKingMove(move, 3, nextBoard);
 					int noMoves = numberMoves(completedMove);
 					int i;
 					for (i = 0; i < noMoves; i++) {

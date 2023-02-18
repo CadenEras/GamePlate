@@ -7,8 +7,6 @@
 #ifndef C_PAS_COOL_GAMEPLATE_INTERFACE_H
 #define C_PAS_COOL_GAMEPLATE_INTERFACE_H
 
-#pragma once
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -16,12 +14,15 @@
 #include <SDL2/SDL_image.h>
 
 #include "checkerGame.h"
-#include "bases.h"
+#include "../base/window.h"
+#include "mainChecker.h"
 
 #define TILESIZE 80
 
-SDL_Surface *screen;
-SDL_Renderer *renderer;
+extern Window *windowC;
+
+/** Le Board de jeu qui sera utilisé tout au long de la partie. (Ne pas utiliser en dehors de moteur.c, utilisez ::get_Board()) */
+extern Board boardGame;
 
 /**
  * @brief Define a black tile. is free ? its number with a surface and a position.
@@ -33,12 +34,6 @@ typedef struct BlackTile {
 	SDL_Surface *surface;
 } BlackTile;
 
-/** Our black tile */
-BlackTile blackTile;
-
-/** Black tile highlighted*/
-BlackTile blackTileHighlighted;
-
 /**
  * @brief Define a white tile. is free ? its number with a surface and a position.
  */
@@ -49,9 +44,6 @@ typedef struct WhiteTile {
 	SDL_Surface *surface;
 } WhiteTile;
 
-/** Our white tile */
-WhiteTile whiteTile;
-
 /**
  * @brief Define a red pawn. is King ? with a surface and a position.
  */
@@ -60,9 +52,6 @@ typedef struct RedPawn {
 	SDL_Surface *surface;
 	SDL_Rect position;
 } RedPawn;
-
-/** Our red pawn */
-RedPawn redPawn;
 
 /**
  * @brief Define a black pawn. is King ? with a surface and a position.
@@ -73,37 +62,33 @@ typedef struct BlackPawn {
 	SDL_Rect position;
 } BlackPawn;
 
-/** Our black pawn */
-BlackPawn blackPawn;
-
-int arrayOfChoice[4];
-
 /**
  * @brief Refresh board after an action.
+ * @param window The window where is the board.
  */
-void refreshBoard();
+void refreshBoard(Window *window);
 
 /**
  * @brief Display Main Checker menu.
  * @param choice Choice from the Main Checker menu.
  */
-void displayMainCheckerMenu(int choice);
+void displayMainCheckerMenu(int choice, Window *window);
 
 /**
  * @brief Display Checker pause menu.
  * @param choice Choice from the Checker pause menu.
  */
-void displayPauseCheckerScreen(int choice);
+void displayPauseCheckerScreen(int choice, Window *window);
 
 /**
  * @brief Affiche l'ecran de fin de partie, les noirs gagnent
  */
-void displayBlackWin();
+void displayBlackWin(Window *window);
 
 /**
  * @brief Affiche l'ecran de fin de partie, les blancs gagnent
  */
-void displayWhiteWin();
+void displayWhiteWin(Window *window);
 
 /**
  * @brief Retourne la position de la mouse après un click
@@ -114,7 +99,7 @@ int *mouseClick(SDL_Event e);
 /**
  * @brief Initialise les cases blanches
  */
-void initWhiteTiles();
+void initWhiteTiles(Window *window);
 
 /**
  * @brief Calcule la position de la mouse a chaque mouvement
