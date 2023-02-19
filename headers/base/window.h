@@ -62,4 +62,18 @@ int mouseClickMainMenu(SDL_Event e);
  */
 void displayMainMenu(int choice, Window *window);
 
+
+/**
+ * @brief Calcule la position de la mouse a chaque mouvement
+ * @return int Un entier representant une position dans le menu pause.
+ */
+int mousePositionEndTTT(SDL_Event e);
+
+/**
+ * @brief Calcule la position de la mouse a chaque click dans le menu principal.
+ * @return int Un entier representant un choice dans le menu principal.
+ */
+int mouseClickEndTTT(SDL_Event e);
+
+
 #endif /* WINDOW_H */

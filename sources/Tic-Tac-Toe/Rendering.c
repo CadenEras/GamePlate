@@ -159,8 +159,9 @@ void render_game_over_state(SDL_Renderer *renderer,
                  color);
 }
 
-void render_game(SDL_Renderer *renderer, const game_t *game)
+int render_game(SDL_Renderer *renderer, const game_t *game)
 {
+    int state=0;
     switch (game->state) {
     case RUNNING_STATE:
         render_running_state(renderer, game);
@@ -168,16 +169,21 @@ void render_game(SDL_Renderer *renderer, const game_t *game)
 
     case PLAYER_X_WON_STATE:
         render_game_over_state(renderer, game, &PLAYER_X_COLOR);
+        state = 1;
         break;
 
     case PLAYER_O_WON_STATE:
         render_game_over_state(renderer, game, &PLAYER_O_COLOR);
+        state = 2;
         break;
 
     case TIE_STATE:
         render_game_over_state(renderer, game, &TIE_COLOR);
+        state = 3;
         break;
 
-    default: {}
+    default:
+        break;
     }
+    return state;
 }

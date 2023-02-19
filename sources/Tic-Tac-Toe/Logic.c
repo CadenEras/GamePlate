@@ -1,5 +1,6 @@
 #include "../../headers/Tic-Tac-Toe/Game.h"
 #include "../../headers/Tic-Tac-Toe/Logic.h"
+#include "../../headers/base/window.h"
 
 void switch_player(game_t *game)
 {
