@@ -74,9 +74,10 @@ make
 
 # ⏳ Contributor
 [CadenEras](https://github.com/CadenEras) - Rôle de la personne
-</br>
 
-![photo_profil](https://avatars.githubusercontent.com/u/103360340?v=4)
+</br>
+<img src="https://avatars.githubusercontent.com/u/103360340?v=4" alt="photo_Manganese" width="10px" height="10px">
+
 [Manganese92](https://github.com/Manganese92) - Rôle de la personne
 </br>
 
