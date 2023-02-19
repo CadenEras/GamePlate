@@ -76,8 +76,10 @@ make
 [CadenEras](https://github.com/CadenEras) - Rôle de la personne
 
 </br>
+<div style="display: flex; align-items: center;">
 <img src="https://avatars.githubusercontent.com/u/103360340?v=4" alt="photo_Manganese" width="30px" height="30px">
 <h4 src="https://github.com/Manganese92"> Manganese92 </h4>
+</div>
 - Rôle de la personne
 </br>
 
