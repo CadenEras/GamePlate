@@ -1,7 +1,7 @@
 # 🐸 GamePlate 🐸
 
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/CadenEras/GamePlate?color=green)
-
+![Lines of code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
 GamePlate is written in C and is a simple multiplayer game application. It is designed to be used as a base for other games.
 
 </br>
