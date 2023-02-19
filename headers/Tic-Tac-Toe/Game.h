@@ -1,11 +1,13 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include "../../headers/base/window.h"
+int main_ttt(Window *window);
 
 // macro pour creer la grille de jeu
 #define N 3
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 800
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 500
 #define CELL_WIDTH (SCREEN_WIDTH / N)
 #define CELL_HEIGHT (SCREEN_HEIGHT / N)
 

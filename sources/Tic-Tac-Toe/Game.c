@@ -9,40 +9,10 @@
 #include "../../headers/Tic-Tac-Toe/Game.h"
 #include "../../headers/Tic-Tac-Toe/Logic.h"
 #include "../../headers/Tic-Tac-Toe/Rendering.h"
+#include "../../headers/base/window.h"
 
-int main(int argc, char *argv[])
+int main_ttt(Window *window)
 {
-    // initialisation de la SDL
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        fprintf(stderr, "Could not initialize sdl2: %s\n", SDL_GetError());
-        return EXIT_FAILURE;
-    }
-
-    // Création de la fenêtre
-    SDL_Window *window = SDL_CreateWindow("Tic Tac Toe",
-                                          1280, 800,
-                                          SCREEN_WIDTH, SCREEN_HEIGHT,
-                                          SDL_WINDOW_SHOWN);
-
-    // Gestions des erreurs
-    if (window == NULL) {
-        fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
-        return EXIT_FAILURE;
-    }
-
-    // contient les informations du contexte d'affichage
-    // déclarant un pointeur sur un renderer ( plus pratique)
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,
-                                                //acceler la carte graphique
-                                                SDL_RENDERER_ACCELERATED |
-                                                // synchronisation du rendu avec la fréquence de rafraichissement de l'écran
-                                                SDL_RENDERER_PRESENTVSYNC);
-    // gestion des erreurs
-    if (renderer == NULL) {
-        SDL_DestroyWindow(window);
-        fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
-        return EXIT_FAILURE;
-    }
 
     // initialisation du jeu avec les cellules vides
     game_t game = {
@@ -79,14 +49,11 @@ int main(int argc, char *argv[])
             }
         }
 
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
-        render_game(renderer, &game);
-        SDL_RenderPresent(renderer);
+        SDL_SetRenderDrawColor(window->renderer, 0, 0, 0, 255);
+        SDL_RenderClear(window->renderer);
+        render_game(window->renderer, &game);
+        SDL_RenderPresent(window->renderer);
     }
-
-    SDL_DestroyWindow(window);
-    SDL_Quit();
 
     return EXIT_SUCCESS;
 }

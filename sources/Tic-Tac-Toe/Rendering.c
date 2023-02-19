@@ -60,7 +60,7 @@ void render_o(SDL_Renderer *renderer,
     const float half_box_side = fmin(CELL_WIDTH, CELL_HEIGHT) * 0.25;
     const float center_x = CELL_WIDTH * 0.5 + column * CELL_WIDTH;
     const float center_y = CELL_HEIGHT * 0.5 + row * CELL_HEIGHT;
-    const int size = 150;
+    const int size = 100;
 
     int halfSize = size / 2;
     int x1 = center_x - halfSize; // Coin inférieur gauche
