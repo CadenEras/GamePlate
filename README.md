@@ -34,7 +34,7 @@ sudo make install
 
 </br>
 
-<h3> Same thing for SDL2_image by going back in the folder and as many times as necessary for all SDL2 libraries </h3>
+<h3> Same thing for SDL2_image and SDL2_ttf by going back in the folder and as many times as necessary for all SDL2 libraries </h3>
 
 ```
 git clone https://github.com/libsdl-org/SDL_image.git -b SDL2_image
