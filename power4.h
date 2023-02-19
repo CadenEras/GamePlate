@@ -15,20 +15,6 @@
 #define PIECE_RADIUS 30
 #define CELL_PADDING 30
 
-int SDL_Init(Uint32 flags);
-void SDL_Quit(void);
-void SDL_DestroyWindow(SDL_Window* window);
-void SDL_Delay(Uint32 ms);
-const char* SDL_GetWindowTitle(SDL_Window* window);
-void SDL_SetWindowTitle(SDL_Window* window, const char* title);
-void SDL_GetWindowPosition(SDL_Window* window, int* x, int* y);
-void SDL_SetWindowPosition(SDL_Window* window, int x, int y);
-void SDL_GetWindowSize(SDL_Window* window, int* w, int* h);
-void SDL_SetWindowSize(SDL_Window* window, int w, int h);
-SDL_Renderer* SDL_CreateRenderer(SDL_Window* window, int index, Uint32 flags);
-void SDL_DestroyRenderer(SDL_Renderer* renderer);
-int SDL_CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** window, SDL_Renderer** renderer);
-
 void SDL_RenderFillCircle(SDL_Renderer* renderer, int x, int y, int radius) {
     for (int w = 0; w < radius * 2; w++) {
         for (int h = 0; h < radius * 2; h++) {

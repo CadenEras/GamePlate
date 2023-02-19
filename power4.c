@@ -1,7 +1,7 @@
 #include "power4.h"
 
 int main(void)
-{
+{   
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
     int statut = EXIT_FAILURE;
