@@ -36,3 +36,92 @@ void updateWindow(Window *window) {
     SDL_RenderClear(window->renderer);
     SDL_RenderPresent(window->renderer);
 }
+
+int mousePositionMainMenu(SDL_Event e){
+	e.motion.x;
+	e.motion.y;
+
+	if(e.button.x > 320 && e.button.x < 485 && e.button.y > 170 && e.button.y < 190 ){
+		return 1;
+	} else {
+		if(e.button.x > 355 && e.button.x < 450 && e.button.y > 213 && e.button.y < 232 ){
+			return 2;
+		} else {
+			if(e.button.x > 325 && e.button.x < 480 && e.button.y > 257 && e.button.y < 278 ){
+				return 3;
+			} else {
+				return 0;
+			}
+		}
+	}
+}
+
+int mouseClickMainMenu(SDL_Event e){
+	e.button.x;
+	e.button.y;
+
+	if(e.button.x > 320 && e.button.x < 485 && e.button.y > 170 && e.button.y < 190 ){
+		return 1;
+	} else {
+		if(e.button.x > 355 && e.button.x < 450 && e.button.y > 213 && e.button.y < 232 ){
+			return 2;
+		} else {
+			if(e.button.x > 325 && e.button.x < 480 && e.button.y > 257 && e.button.y < 278 ){
+				return 3;
+			} else {
+				return 0;
+			}
+		}
+	}
+}
+
+void displayMainMenu(int choice, Window *window) {
+	SDL_Surface *startScreen;
+	SDL_Rect position;
+	position.x = 0;
+	position.y = 0;
+
+	SDL_Surface *windowMenu = SDL_GetWindowSurface(window->window);
+	printf("là 1");
+	switch (choice) {
+		case 1: //Jeu de dame
+			startScreen = SDL_LoadBMP("./assets/main_menu_checkers_selected.bmp"); 
+			if (startScreen == 0 || startScreen == NULL) {
+				printf("ça a pas marché : %s", SDL_GetError());
+				exit(-1);
+			}
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+			if(SDL_UpdateWindowSurface(window->window) != 0) {
+				printf("Surface could not be updated -> SDL_Error: %s", SDL_GetError());
+				exit(-1);
+			}
+			break;
+		case 2: //Morpion
+			startScreen = SDL_LoadBMP("./assets/main_menu_morpion_selected.bmp"); 
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+			SDL_UpdateWindowSurface(window->window);
+			break;
+        case 3: //Puissance 4
+			startScreen = SDL_LoadBMP("./assets/main_menu_puis4_selected.bmp"); 
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+			SDL_UpdateWindowSurface(window->window);
+			break;    
+		case 4: //Quit
+			startScreen = SDL_LoadBMP("./assets/main_menu_quit.bmp"); 
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+			SDL_UpdateWindowSurface(window->window);
+			break;
+		default: // Neutre
+			startScreen = SDL_LoadBMP("./assets/main_menu_neutral.bmp"); //neutral menu
+			if (startScreen == 0 || startScreen == NULL) {
+				printf("ça a pas marché : %s", SDL_GetError());
+				exit(-1);
+			}
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+			if(SDL_UpdateWindowSurface(window->window) != 0) {
+				printf("Surface could not be updated -> SDL_Error: %s", SDL_GetError());
+				exit(-1);
+			}
+			break;
+	}
+}

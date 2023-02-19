@@ -38,4 +38,28 @@ void destroyWindow(Window *window);
  */
 void updateWindow(Window *window);
 
+/**
+ * @brief Display Main Checker menu.
+ * @param choice Choice from the Main Checker menu.
+ */
+void displayMainCheckerMenu(int choice, Window *window);
+
+/**
+ * @brief Calcule la position de la mouse a chaque mouvement
+ * @return int Un entier representant une position dans le menu pause.
+ */
+int mousePositionMainMenu(SDL_Event e);
+
+/**
+ * @brief Calcule la position de la mouse a chaque click dans le menu principal.
+ * @return int Un entier representant un choice dans le menu principal.
+ */
+int mouseClickMainMenu(SDL_Event e);
+
+/**
+ * @brief Display Main Checker menu.
+ * @param choice Choice from the Main Checker menu.
+ */
+void displayMainMenu(int choice, Window *window);
+
 #endif /* WINDOW_H */
