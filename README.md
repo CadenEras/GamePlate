@@ -4,13 +4,6 @@ GamePlate is written in C and is a simple multiplayer game application. It is de
 
 </br>
 
-# ⏳ Compilation 
-
-Commande temporaire :
-</br>
-gcc main.c -o main.out $(sdl2 -config --cflags --libs)
-
-</br>
 
 # 🔌 Installation SDL2 et Cmake Linux 
 
@@ -66,15 +59,17 @@ sudo make install
 
 
 
-# 📁 Comment utiliser Cmake for Linux 
+# ⏳ Compilation 
 
 <h5>Pour VScode : </h5>
 ctrl + maj + p
+cmake configure 
+cmake build
 
 </br>
 </br>
 
-<h5>en ligne de comandes :</h5>
+<h5>en ligne de comandes (terminal) :</h5>
 </br>
 mkdir build && cd build
 </br>
