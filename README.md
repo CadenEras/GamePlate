@@ -91,7 +91,7 @@ make
  - Menu
 </br>
 
-[Manganese92](https://github.com/Manganse92) 
+[Manganese92](https://github.com/Manganese92) 
 - Game Tic Tac Toe
 - Readme
 - Config
