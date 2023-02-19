@@ -15,9 +15,6 @@ sudo apt-get install build-essential
 </br>
 sudo apt-get install cmake
 </br>
-sudo apt install libsdl2-gfx-dev
-</br>
-
 </br>
 
 <h3> Dans un dossier séparé </h3>
@@ -39,9 +36,10 @@ sudo make install
 
 </br>
 
-<h3> Same pour SDL2_image en revant en arrière dans le dossier et autant de fois que necessaire pour toutes les librairies SDL
-git clone https://github.com/libsdl-org/SDL_image.git -b SDL2_image </h3>
+<h3> Même chose pour SDL2_image en revenant en arrière dans le dossier et autant de fois que necessaire pour toutes les librairies SDL </h3>
 
+git clone https://github.com/libsdl-org/SDL_image.git -b SDL2_image
+</br>
 cd SDL
 </br>
 mkdir build
@@ -62,15 +60,15 @@ sudo make install
 # ⏳ Compilation 
 
 <h5>Pour VScode : </h5>
+
 ctrl + maj + p
 cmake configure 
 cmake build
 
 </br>
-</br>
 
 <h5>en ligne de comandes (terminal) :</h5>
-</br>
+
 mkdir build && cd build
 </br>
 export CC=gcc
