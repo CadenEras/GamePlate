@@ -76,9 +76,9 @@ make
 [CadenEras](https://github.com/CadenEras) - Rôle de la personne
 
 </br>
-<img src="https://avatars.githubusercontent.com/u/103360340?v=4" alt="photo_Manganese" width="10px" height="10px">
-
-[Manganese92](https://github.com/Manganese92) - Rôle de la personne
+<img src="https://avatars.githubusercontent.com/u/103360340?v=4" alt="photo_Manganese" width="30px" height="30px">
+<h4 src="https://github.com/Manganese92"> Manganese92 </h4>
+- Rôle de la personne
 </br>
 
 [eLainez558](https://github.com/eLainez558) - Rôle de la personne
