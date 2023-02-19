@@ -11,7 +11,7 @@ int main(void)
         goto Quit;
     }
 
-    window = SDL_CreateWindow("SDL2", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Connect_4", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 500, SDL_WINDOW_SHOWN);
 
     if(NULL == window){
         fprintf(stderr, "Erreur SDL_CreateWindow : %s", SDL_GetError());
