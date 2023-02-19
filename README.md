@@ -45,6 +45,17 @@ cd build
 make
 sudo make install
 ```
+</br>
+
+```
+git clone https://github.com/libsdl-org/SDL_ttf.git -b SDL2_ttf
+cd SDL
+mkdir build
+cd build
+../configure
+make
+sudo make install
+```
 
 </br>
 
@@ -83,6 +94,7 @@ make
 [Manganese92](https://github.com/Manganse92) 
 - Game Tic Tac Toe
 - Readme
+- Config
 </br>
 
 [eLainez558](https://github.com/eLainez558)
