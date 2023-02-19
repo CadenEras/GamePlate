@@ -12,6 +12,9 @@
 
 int main_ttt(Window *window)
 {
+    int state = 0;
+    int running = 1;
+
 
     // initialisation du jeu avec les cellules vides
     game_t game = {
@@ -48,10 +51,23 @@ int main_ttt(Window *window)
             }
         }
 
+        while (running == 1){
+            switch(){
+                case 1:
+                    reset_game(&game);
+                    break;
+                case 2:
+                    game.state = QUIT_STATE;
+                    break;
+                default:
+                    break;
+            }
         SDL_SetRenderDrawColor(window->renderer, 0, 0, 0, 255);
         SDL_RenderClear(window->renderer);
-        render_game(window->renderer, &game);
+        state = render_game(window->renderer, &game);
         SDL_RenderPresent(window->renderer);
+       }
+ 
     }
 
     return EXIT_SUCCESS;
