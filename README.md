@@ -1,6 +1,7 @@
 # 🐸 GamePlate 🐸
 
 ![Lines of code](https://img.shields.io/tokei/lines/github.com/CadenEras/GamePlate?color=green)
+</br>
 GamePlate is written in C and is a simple multiplayer game application. It is designed to be used as a base for other games.
 
 </br>
@@ -74,18 +75,15 @@ make
 
 # 👩‍💻 Contributors
 [CadenEras](https://github.com/CadenEras)
-</br>
  - Makefile
  - Game Checker
  - Menu
 </br>
 
 [Manganese92](https://github.com/Manganse92) 
-</br>
 - Game Tic Tac Toe
 - Readme
 </br>
 
 [eLainez558](https://github.com/eLainez558)
-</br>
  - Game Power 4
