@@ -98,3 +98,133 @@ void click_on_cell(game_t *game, int row, int column)
         reset_game(game);
     }
 }
+
+
+
+
+
+int mousePositionEndTTT(SDL_Event e){
+	e.motion.x;
+	e.motion.y;
+
+	// Rejouer
+	if(e.button.x > 348 && e.button.x < 450 && e.button.y > 290 && e.button.y < 316 ){
+		return 1;
+	} else {
+		//Quitter
+		if(e.button.x > 350 && e.button.x < 450 && e.button.y > 330 && e.button.y < 354 ){
+			return 2;
+		} else {
+				return 0;
+			}
+		}
+	}
+
+	int mouseClickEndTTT(SDL_Event e)
+	{
+		e.button.x;
+		e.button.y;
+
+		// Rejouer
+		if (e.button.x > 348 && e.button.x < 450 && e.button.y > 290 && e.button.y < 316){
+			return 1;
+		}
+		else{
+			// Quitter
+			if (e.button.x > 350 && e.button.x < 450 && e.button.y > 330 && e.button.y < 354){
+				return 2;
+			} else{
+				return 0;}
+		}
+	}
+
+
+	void displayEndTTT(int state, int choice, Window *window) {
+	SDL_Surface *startScreen;
+	SDL_Rect position;
+	position.x = 0;
+	position.y = 0;
+
+	SDL_Surface *windowMenu = SDL_GetWindowSurface(window->window);
+	switch (state) {
+		case 1: //Joueur 1 win
+			switch (choice) {
+
+				case 1: // Rejouer
+				startScreen = SDL_LoadBMP("./assets/morpion/morpion_p1_win_replay_selected.bmp"); 
+				if (startScreen == 0 || startScreen == NULL) {
+					printf("ça a pas marché : %s", SDL_GetError());
+					exit(-1);
+				}
+				SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+				SDL_UpdateWindowSurface(window->window);
+				break;
+
+				case 2: // Quitter
+				startScreen = SDL_LoadBMP("./assets/morpion/morpion_p1_win_quit_selected.bmp"); 
+				if (startScreen == 0 || startScreen == NULL) {
+					printf("ça a pas marché : %s", SDL_GetError());
+					exit(-1);
+				}
+				SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+				SDL_UpdateWindowSurface(window->window);
+				break;
+
+				default: // Neutre
+				startScreen = SDL_LoadBMP("./assets/morpion/morpion_p1_win_neutral.bmp"); 
+				if (startScreen == 0 || startScreen == NULL) {
+					printf("ça a pas marché : %s", SDL_GetError());
+					exit(-1);
+				}
+				SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+				SDL_UpdateWindowSurface(window->window);
+				break;
+
+			}
+		break;
+
+
+		case 2: //Joueur 2 win
+
+			switch (choice){ 
+
+				case 1: // Rejouer
+				startScreen = SDL_LoadBMP("./assets/morpion/morpion_p2_win_replay_select.bmp");
+				if (startScreen == 0 || startScreen == NULL)
+				{
+					printf("ça a pas marché : %s", SDL_GetError());
+					exit(-1);
+				}
+				SDL_BlitSurface(startScreen, NULL, windowMenu, &position);
+				SDL_UpdateWindowSurface(window->window);
+				break;
+
+				case 2: // Quitter
+				startScreen = SDL_LoadBMP("./assets/morpion/morpion_p2_win_quit_select.bmp");
+				if (startScreen == 0 || startScreen == NULL)
+				{
+					printf("ça a pas marché : %s", SDL_GetError());
+					exit(-1);
+				}
+				SDL_BlitSurface(startScreen, NULL, windowMenu, &position);
+				SDL_UpdateWindowSurface(window->window);
+				break;
+
+				default: // Neutre
+				startScreen = SDL_LoadBMP("./assets/morpion/morpion_p2_win_neutral.bmp");
+				if (startScreen == 0 || startScreen == NULL)
+				{
+					printf("ça a pas marché : %s", SDL_GetError());
+					exit(-1);
+				}
+				SDL_BlitSurface(startScreen, NULL, windowMenu, &position);
+				if (SDL_UpdateWindowSurface(window->window) != 0)
+				{
+					printf("Surface could not be updated -> SDL_Error: %s", SDL_GetError());
+					exit(-1);
+				}
+				break;
+			}
+		break;
+}
+}
