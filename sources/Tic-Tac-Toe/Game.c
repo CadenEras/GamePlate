@@ -1,11 +1,9 @@
-//gcc main.c sources/base/window.c  sources/Tic-Tac-Toe/Game.c sources/Tic-Tac-Toe/Logic.c sources/Tic-Tac-Toe/Rendering.c -o main.out $(sdl2-config --cflags --libs) -lm -lSDL2_image -lSDL2_ttf
-
+//gcc main.c sources/base/window.c  sources/Tic-Tac-Toe/Game.c sources/Tic-Tac-Toe/Logic.c sources/Tic-Tac-Toe/Rendering.c -o main.out $(sdl2-config --cflags --libs) -lm -lSDL2_image
 
 #include <stdlib.h>
 #include <stdio.h>
 
 #include <SDL2/SDL.h>
-#include <SDL_ttf.h>
 
 #include "../../headers/Tic-Tac-Toe/Game.h"
 #include "../../headers/Tic-Tac-Toe/Logic.h"
@@ -14,7 +12,7 @@
 
 int main_ttt(Window *window)
 {
-    printf("Tic-Tac-Toe\n");
+
     // initialisation du jeu avec les cellules vides
     game_t game = {
         .board = { EMPTY, EMPTY, EMPTY,
