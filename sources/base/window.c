@@ -80,9 +80,7 @@ void displayMainMenu(int choice, Window *window) {
 	SDL_Rect position;
 	position.x = 0;
 	position.y = 0;
-
 	SDL_Surface *windowMenu = SDL_GetWindowSurface(window->window);
-	printf("là 1");
 	switch (choice) {
 		case 1: //Jeu de dame
 			startScreen = SDL_LoadBMP("./assets/main_menu_checkers_selected.bmp"); 
