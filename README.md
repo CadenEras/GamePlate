@@ -74,5 +74,9 @@ make
 
 # ⏳ Contributor
 [CadenEras](https://github.com/CadenEras) - Rôle de la personne
-[Manganese92](https://github.com/Manganese92) - Rôle de la personne
+</br>
+
+[Manganese92](https://avatars.githubusercontent.com/u/103360340?v=4)[Manganese92](https://github.com/Manganese92) - Rôle de la personne
+</br>
+
 [eLainez558](https://github.com/eLainez558) - Rôle de la personne
