@@ -198,14 +198,6 @@ void displayMoveAvailable(Move *move);
 int moveIsIncluded(BoardTile c, BoardTile *list, int size);
 
 /**
- * @brief retourne la case si elle existe, ou la case 0 sinon
- * @param x la position horizontale sur le Board
- * @param y la position verticale sur le Board
- * @param p le Board courant
- */
-BoardTile getTileSilent(int x, int y, Board board);
-
-/**
  * @brief retourne le nombre de Moves dans set
  * @param set le tableau des Moves.
  */

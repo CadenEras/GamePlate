@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
 
 	SDL_FillRect(screen, NULL, SDL_MapRGBA(screen->format, 255, 255, 255, 255));
 	SDL_UpdateWindowSurface(window->window);
+	
 	mainChecker(window);
 	//Don't forget to free everything !!
 	//cleanEverything(window);

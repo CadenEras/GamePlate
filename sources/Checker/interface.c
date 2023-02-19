@@ -28,37 +28,47 @@ BlackPawn blackPawn;
 // The board we will use
 Board board;
 
-int arrayOfChoice[4];
-
 void displayMainCheckerMenu(int choice, Window *window) {
 	SDL_Surface *startScreen;
 	SDL_Rect position;
 	position.x = 0;
 	position.y = 0;
 
+	SDL_Surface *windowMenu = SDL_GetWindowSurface(window->window);
 	switch (choice) {
 		case 1:
-			startScreen = IMG_Load("../../assets/Checker/checker_menu_new_selected.bmp"); //start menu
-			SDL_BlitSurface(startScreen,NULL,window->screen,&position);
-			SDL_UpdateWindowSurface(window->window);
+			startScreen = IMG_Load("./../assets/Checker/checker_menu_new_selected.bmp"); //start menu
+			if (startScreen == 0 || startScreen == NULL) {
+				printf("ça a pas marché : %s", SDL_GetError());
+				exit(-1);
+			}
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+			if(SDL_UpdateWindowSurface(window->window) != 0) {
+				printf("Surface could not be updated -> SDL_Error: %s", SDL_GetError());
+				exit(-1);
+			}
 			break;
 		case 2:
-			startScreen = IMG_Load("../../assets/Checker/checker_menu_load_selected.bmp"); //load menu
-			SDL_BlitSurface(startScreen,NULL,window->screen,&position);
+			startScreen = IMG_Load("./../assets/Checker/checker_menu_load_selected.bmp"); //load menu
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
 			SDL_UpdateWindowSurface(window->window);
-			break;
 			break;
 		case 3:
-			startScreen = IMG_Load("../../assets/Checker/checker_menu_quit_selected.bmp"); //quit menu
-			SDL_BlitSurface(startScreen,NULL,window->screen,&position);
+			startScreen = SDL_LoadBMP("./../assets/Checker/checker_menu_quit_selected.bmp"); //quit menu
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
 			SDL_UpdateWindowSurface(window->window);
-			break;
 			break;
 		default:
-			startScreen = IMG_Load("../../assets/Checker/checker_menu_neutral.bmp"); //neutral menu
-			SDL_BlitSurface(startScreen,NULL,window->screen,&position);
-			SDL_UpdateWindowSurface(window->window);
-			break;
+			startScreen = SDL_LoadBMP("./../assets/Checker/checker_menu_neutral.bmp"); //neutral menu
+			if (startScreen == 0 || startScreen == NULL) {
+				printf("ça a pas marché : %s", SDL_GetError());
+				exit(-1);
+			}
+			SDL_BlitSurface(startScreen,NULL,windowMenu,&position);
+			if(SDL_UpdateWindowSurface(window->window) != 0) {
+				printf("Surface could not be updated -> SDL_Error: %s", SDL_GetError());
+				exit(-1);
+			}
 			break;
 	}
 }
@@ -71,22 +81,22 @@ void displayPauseCheckerScreen(int choice, Window *window) {
 
 	switch (choice) {
 		case 1:
-			pauseMenu = SDL_LoadBMP("../../assets/Checker/checker_pause_menu_save_selected.bmp");
+			pauseMenu = SDL_LoadBMP("./../assets/Checker/checker_pause_menu_save_selected.bmp");
 			SDL_BlitSurface(pauseMenu,NULL,window->screen,&position);
 			SDL_UpdateWindowSurface(window->window);
 			break;
 		case 2:
-			pauseMenu = SDL_LoadBMP("../../assets/Checker/checker_pause_menu_backtogame_selected.bmp");
+			pauseMenu = SDL_LoadBMP("./../assets/Checker/checker_pause_menu_backtogame_selected.bmp");
 			SDL_BlitSurface(pauseMenu,NULL,window->screen,&position);
 			SDL_UpdateWindowSurface(window->window);
 			break;
 		case 3:
-			pauseMenu = SDL_LoadBMP("../../assets/Checker/checker_pause_menu_quit_selected.bmp");
+			pauseMenu = SDL_LoadBMP("./../assets/Checker/checker_pause_menu_quit_selected.bmp");
 			SDL_BlitSurface(pauseMenu,NULL,window->screen,&position);
 			SDL_UpdateWindowSurface(window->window);
 			break;
 		default:
-			pauseMenu = SDL_LoadBMP("../../assets/Checker/checker_pause_menu_neutral.bmp");
+			pauseMenu = SDL_LoadBMP("./../assets/Checker/checker_pause_menu_neutral.bmp");
 			SDL_BlitSurface(pauseMenu,NULL,window->screen,&position);
 			SDL_UpdateWindowSurface(window->window);
 			break;
@@ -95,33 +105,37 @@ void displayPauseCheckerScreen(int choice, Window *window) {
 
 void refreshBoard(Window *window) {
 	int i;
-	blackTile.surface = SDL_LoadBMP("Images/marbre_black.bmp");
-	whiteTile.surface = SDL_LoadBMP("Images/marbre.bmp");
-	blackTileHighlighted.surface = SDL_LoadBMP("Images/marbre_black_selectionne.bmp");
+	blackTile.surface = SDL_LoadBMP("./../assets/Checker/black_tile.bmp");
+	whiteTile.surface = SDL_LoadBMP("./../assets/Checker/white_tile.bmp");
+	blackTileHighlighted.surface = SDL_LoadBMP("./../assets/Checker/black_tile_select.bmp");
 
 	for ( i = 1 ; i <= 50 ; i++) {
 		if(board.tiles[i].isHighlighted == 0) {				// IF tile is not selected
 			blackTile.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			blackTile.position.y = (board.tiles[i].y - 1) * TILESIZE;
 			SDL_BlitSurface(blackTile.surface, NULL, window->screen, &blackTile.position);
+			SDL_UpdateWindowSurface(window->window);
 			redPawn.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			redPawn.position.y = (board.tiles[i].y - 1) * TILESIZE;
 
 			blackTile.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			blackTile.position.y = (board.tiles[i].y - 1) * TILESIZE;
 			SDL_BlitSurface(blackTile.surface, NULL, window->screen, &blackTile.position);
+			SDL_UpdateWindowSurface(window->window);
 			blackPawn.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			blackPawn.position.y = (board.tiles[i].y - 1) * TILESIZE;
 		} else {											// else tile is selected
 			blackTileHighlighted.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			blackTileHighlighted.position.y = (board.tiles[i].y - 1) * TILESIZE;
 			SDL_BlitSurface(blackTileHighlighted.surface, NULL, window->screen, &blackTileHighlighted.position);
+			SDL_UpdateWindowSurface(window->window);
 			redPawn.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			redPawn.position.y = (board.tiles[i].y - 1) * TILESIZE;
 
 			blackTileHighlighted.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			blackTileHighlighted.position.y = (board.tiles[i].y - 1) * TILESIZE;
 			SDL_BlitSurface(blackTileHighlighted.surface, NULL, window->screen, &blackTileHighlighted.position);
+			SDL_UpdateWindowSurface(window->window);
 			blackPawn.position.x = (board.tiles[i].x - 1) * TILESIZE;
 			blackPawn.position.y = (board.tiles[i].y - 1) * TILESIZE;
 		}
@@ -130,23 +144,27 @@ void refreshBoard(Window *window) {
 			if (board.tiles[i].pawn.color == white) { 			// IF pawn is white
 				if (board.tiles[i].pawn.isKing == 0) { 			// IF pawn is not a King
 					if (board.tiles[i].pawn.isHighlighted == 0) { // IF pawn is not selected
-						redPawn.surface = SDL_LoadBMP("Images/redPawn.bmp");
+						redPawn.surface = SDL_LoadBMP("./../assets/Checker/red.bmp");
 						//SDL_SetColorKey(redPawn.surface, NULL, SDL_MapRGB(redPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(redPawn.surface, NULL, window->screen, &redPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					} else {									// else pawn is selected
-						redPawn.surface = SDL_LoadBMP("Images/redPawn_selectionne.bmp");
+						redPawn.surface = SDL_LoadBMP("./../assets/Checker/red_select.bmp");
 						//SDL_SetColorKey(redPawn.surface, NULL, SDL_MapRGB(redPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(redPawn.surface, NULL, window->screen, &redPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					}
 				} else { 										// else pawn is a King
 					if (board.tiles[i].pawn.isHighlighted == 0) { // IF pawn is not selected
-						redPawn.surface = SDL_LoadBMP("Images/redPawn_dame.bmp");
+						redPawn.surface = SDL_LoadBMP("./../assets/Checker/red_king.bmp");
 						//SDL_SetColorKey(redPawn.surface, NULL, SDL_MapRGB(redPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(redPawn.surface, NULL, window->screen, &redPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					} else {									// else pawn is selected
-						redPawn.surface = SDL_LoadBMP("Images/redPawn_dame_selectionne.bmp");
+						redPawn.surface = SDL_LoadBMP("./../assets/Checker/red_select_king.bmp");
 						//SDL_SetColorKey(redPawn.surface, NULL, SDL_MapRGB(redPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(redPawn.surface, NULL, window->screen, &redPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					}
 				}
 			}
@@ -154,23 +172,27 @@ void refreshBoard(Window *window) {
 			if (board.tiles[i].pawn.color == black) {			// IF pawn is black
 				if (board.tiles[i].pawn.isKing == 0) { 			// IF pawn is not a King
 					if (board.tiles[i].pawn.isHighlighted == 0) { // IF pawn is not selected
-						blackPawn.surface = SDL_LoadBMP("Images/blackPawn.bmp");
+						blackPawn.surface = SDL_LoadBMP("./../assets/Checker/black.bmp");
 						//SDL_SetColorKey(blackPawn.surface, NULL, SDL_MapRGB(blackPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(blackPawn.surface, NULL, window->screen, &blackPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					} else {
-						blackPawn.surface = SDL_LoadBMP("Images/blackPawn_selectionne.bmp");
+						blackPawn.surface = SDL_LoadBMP("./../assets/Checker/black_select.bmp");
 						//SDL_SetColorKey(blackPawn.surface, NULL, SDL_MapRGB(blackPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(blackPawn.surface, NULL, window->screen, &blackPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					}
 				} else {
 					if (board.tiles[i].pawn.isHighlighted == 0){ 
-						blackPawn.surface = SDL_LoadBMP("Images/blackPawn_dame.bmp");
+						blackPawn.surface = SDL_LoadBMP("./../assets/Checker/black_king.bmp");
 						//SDL_SetColorKey(blackPawn.surface, NULL, SDL_MapRGB(blackPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(blackPawn.surface, NULL, window->screen, &blackPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					} else {
-						blackPawn.surface = SDL_LoadBMP("Images/blackPawn_dame_selectionne.bmp");
+						blackPawn.surface = SDL_LoadBMP("./../assets/Checker/black_select_king.bmp");
 						//SDL_SetColorKey(blackPawn.surface, NULL, SDL_MapRGB(blackPawn.surface->format, 241, 241, 241));
 						SDL_BlitSurface(blackPawn.surface, NULL, window->screen, &blackPawn.position);
+						SDL_UpdateWindowSurface(window->window);
 					}
 				}
 			}
@@ -184,9 +206,9 @@ void displayWhiteWin(Window *window) {
 	position.x = 0;
 	position.y = 0;
 
-	screenWhiteWin = SDL_LoadBMP("Images/blancs_gagnent.bmp");
+	screenWhiteWin = SDL_LoadBMP("./../assets/Checker/checker_red_win.bmp");
 	SDL_BlitSurface(screenWhiteWin,NULL,window->screen,&position);
-	updateWindow(window);
+	SDL_UpdateWindowSurface(window->window);
 }
 
 void displayBlackWin(Window *window) {
@@ -195,9 +217,9 @@ void displayBlackWin(Window *window) {
 	position.x = 0;
 	position.y = 0;
 
-	screenBlackWin = SDL_LoadBMP("Images/noirs_gagnent.bmp");
+	screenBlackWin = SDL_LoadBMP("./../assets/Checker/checker_black_win.bmp");
 	SDL_BlitSurface(screenBlackWin,NULL,window->screen,&position);
-	updateWindow(window);
+	SDL_UpdateWindowSurface(window->window);
 }
 
 int *mouseClick(SDL_Event e){
@@ -221,13 +243,13 @@ int mousePosition(SDL_Event e){
 	e.motion.x;
 	e.motion.y;
 
-	if (e.motion.x > 142 && e.motion.x < 670 && e.motion.y > 347 && e.motion.y < 380 ) {
+	if(e.button.x > 300 && e.button.x < 500 && e.button.y > 214 && e.button.y < 230 ){
 		return 1;
 	} else {
-		if (e.motion.x > 173 && e.motion.x < 640 && e.motion.y > 449 && e.motion.y < 480 ) {
+		if(e.button.x > 280 && e.button.x < 530 && e.button.y > 256 && e.button.y < 280 ){
 			return 2;
 		} else {
-			if (e.motion.x > 310 && e.motion.x < 500 && e.motion.y > 548 && e.motion.y < 580 ) {
+			if(e.button.x > 350 && e.button.x < 450 && e.button.y > 338 && e.button.y < 360 ){
 				return 3;
 			} else {
 				return 0;
@@ -240,18 +262,15 @@ int mouseClickMenu(SDL_Event e){
 	e.button.x;
 	e.button.y;
 
-	if(e.button.x > 142 && e.button.x < 670 && e.button.y > 347 && e.button.y < 380 ){
+	if(e.button.x > 300 && e.button.x < 500 && e.button.y > 214 && e.button.y < 230 ){
 		return 1;
-	}
-	else{
-		if(e.button.x > 173 && e.button.x < 640 && e.button.y > 449 && e.button.y < 480 ){
+	} else {
+		if(e.button.x > 280 && e.button.x < 530 && e.button.y > 256 && e.button.y < 280 ){
 			return 2;
-		}
-		else{
-			if(e.button.x > 310 && e.button.x < 500 && e.button.y > 548 && e.button.y < 580 ){
+		} else {
+			if(e.button.x > 350 && e.button.x < 450 && e.button.y > 338 && e.button.y < 360 ){
 				return 3;
-			}
-			else{
+			} else {
 				return 0;
 			}
 		}
@@ -262,18 +281,15 @@ int mousePositionPause(SDL_Event e){
 	e.motion.x;
 	e.motion.y;
 
-	if(e.motion.x > 251 && e.motion.x < 540 && e.motion.y > 321 && e.motion.y < 356 ){
+	if(e.motion.x > 310 && e.motion.x < 490 && e.motion.y > 220 && e.motion.y < 240 ){
 		return 1;
-	}
-	else{
-		if(e.motion.x > 180 && e.motion.x < 624 && e.motion.y > 397 && e.motion.y < 429 ){
+	} else {
+		if(e.motion.x > 295 && e.motion.x < 505 && e.motion.y > 265 && e.motion.y < 287 ){
 			return 2;
-		}
-		else{
-			if(e.motion.x > 305 && e.motion.x < 494 && e.motion.y > 479 && e.motion.y < 510 ){
+		} else {
+			if(e.motion.x > 344 && e.motion.x < 460 && e.motion.y > 313 && e.motion.y < 336 ){
 				return 3;
-			}
-			else{
+			} else {
 				return 0;
 			}
 		}
@@ -284,18 +300,15 @@ int mouseClickPause(SDL_Event e){
 	e.button.x;
 	e.button.y;
 
-	if(e.button.x > 251 && e.button.x < 540 && e.button.y > 321 && e.button.y < 356 ){
+	if(e.motion.x > 310 && e.motion.x < 490 && e.motion.y > 220 && e.motion.y < 240 ){
 		return 1;
-	}
-	else{
-		if(e.button.x > 180 && e.button.x < 624 && e.button.y > 397 && e.button.y < 429 ){
+	} else {
+		if(e.motion.x > 295 && e.motion.x < 505 && e.motion.y > 265 && e.motion.y < 287 ){
 			return 2;
-		}
-		else{
-			if(e.button.x > 305 && e.button.x < 494 && e.button.y > 479 && e.button.y < 510 ){
+		} else {
+			if(e.motion.x > 344 && e.motion.x < 460 && e.motion.y > 313 && e.motion.y < 336 ){
 				return 3;
-			}
-			else{
+			} else {
 				return 0;
 			}
 		}
@@ -304,13 +317,18 @@ int mouseClickPause(SDL_Event e){
 
 void initWhiteTiles(Window *window) {
 	int i,j;
-	whiteTile.surface = SDL_LoadBMP("Images/marbre.bmp");
+	whiteTile.surface = SDL_LoadBMP("./../assets/Checker/white_tile.bmp");
+	if(whiteTile.surface == NULL || whiteTile.surface == 0) {
+		printf("ça a pas marché %s", SDL_GetError);
+		exit(-1);
+	}
 	whiteTile.position.x = 0;
 	whiteTile.position.y = 0;
 
 	for(i = 0; i<=4; i++) {
 		for(j=0;j<=4;j++) {
 			SDL_BlitSurface(whiteTile.surface, NULL, window->screen, &whiteTile.position);
+			SDL_UpdateWindowSurface(window->window);
 			whiteTile.position.x += 2 * TILESIZE;
 		}
 		whiteTile.position.y += TILESIZE;
@@ -318,61 +336,11 @@ void initWhiteTiles(Window *window) {
 
 		for(j=0;j<=4;j++){
 			SDL_BlitSurface(whiteTile.surface, NULL, window->screen, &whiteTile.position);
+			SDL_UpdateWindowSurface(window->window);
 			whiteTile.position.x += 2 * TILESIZE;
 		}
 		whiteTile.position.y += TILESIZE;
 		whiteTile.position.x = 0;
-	}
-}
-
-void capturePawnControl(BoardTile oldPosition, BoardTile newPosition){
-	int diffX, diffY;
-	BoardTile hoveredTile;
-	diffX = oldPosition.x - newPosition.x;
-	diffY = oldPosition.y - newPosition.y;
-
-	switch(diffX){
-		case 2: //On va a gauche
-			switch(diffY){
-				case 2: //On va en haut a gauche
-					hoveredTile = getTilePosition( newPosition.x + 1, newPosition.y + 1, board);
-					printf("Case survole :");
-					displayTestInfo(hoveredTile);
-					capturePawnOnBoard(hoveredTile.officialRating, &board);
-					break;
-				case -2: //On va en bas a gauche
-					hoveredTile = getTilePosition( newPosition.x + 1, newPosition.y - 1, board);
-					printf("Case survole :");
-					displayTestInfo(hoveredTile);
-					capturePawnOnBoard(hoveredTile.officialRating, &board);
-					break;
-				default: //default
-					printf("mouvement interdit \n");
-					break;
-			}
-			break;
-		case -2: //On va a droite
-			switch(diffY){
-				case 2: //On va en haut a droite
-					hoveredTile = getTilePosition( newPosition.x - 1, newPosition.y + 1, board);
-					printf("Case survole :");
-					displayTestInfo(hoveredTile);
-					capturePawnOnBoard(hoveredTile.officialRating, &board);
-					break;
-				case -2: //On va en bas a droite
-					hoveredTile = getTilePosition( newPosition.x - 1, newPosition.y - 1, board);
-					printf("Case survole :");
-					displayTestInfo(hoveredTile);
-					capturePawnOnBoard(hoveredTile.officialRating, &board);
-					break;
-				default:
-					printf("mouvement interdit \n");
-					break;
-			}
-			break;
-		default:
-			printf("mouvement interdit \n");
-			break;
 	}
 }
 
@@ -384,45 +352,4 @@ BoardTile highlightControl(int *tab){
 	}
 
 	return tile;
-}
-
-BoardTile firstClickOnBoardControl(SDL_Event event, int *tab, Board *b, BoardTile *oldCase){
-	BoardTile selected;
-	Player actualPlayer;
-	actualPlayer = b->turn;
-	selected = getTilePosition(tab[0], tab[1],*b);
-
-	if(selected.isFree == 0) { //Si elle n'est pas libre
-		if(selected.pawn.color == actualPlayer.color) { //Si colorpawn correspond au Player en cours
-			*oldCase = selected;
-			//selected = highlightControl(tab, p);
-			printf("premier click reussi : tab[0] = %d tab[1] = %d \n", tab[0], tab[1]);
-		}//FinSi colorpawn correspond au Player en cours
-	}//FinSi elle n'est pas libre
-
-	return selected;
-}
-
-BoardTile secondClickOnBoardControl(SDL_Event event, int *tab, Board *b, BoardTile *newCase, BoardTile *oldCase){
-	BoardTile selected;
-	//BoardTile moveTile;
-
-	selected = getTilePosition(tab[0], tab[1], *b);
-
-	if(selected.isFree){ //Si la case est libre
-		//Si la case selectionne correspond a une des cases du tableau des coups possibles
-		*newCase = selected;
-		movePawnOnBoard(oldCase->officialRating,newCase->officialRating, b);
-		printf("deuxieme click reussi \n");
-	} //FinSi la case est libre
-
-	return selected;
-}
-
-//??
-void initialisation_tableau_choix(){
-	arrayOfChoice[0] = 0;
-	arrayOfChoice[1] = 0;
-	arrayOfChoice[2] = 0;
-	arrayOfChoice[3] = 0;
 }

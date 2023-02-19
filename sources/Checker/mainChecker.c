@@ -42,27 +42,20 @@ int mainChecker(Window *window) {
 	gameWindow = 1;
 	pauseMenu = 1;
 	activeWindow = 0;
+    pos = 0;
 	int ongoingTurn = 0;
 
-	/*SDL_Init(SDL_INIT_VIDEO);
-	SDL_WM_SetIcon(SDL_LoadBMP("Images/icon.bmp"), NULL);
-	screen = SDL_SetVideoMode(LARGEUR, LONGUEUR, 32,
-			SDL_SWSURFACE | SDL_DOUBLEBUF);
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 0, 0));*/
-
-	printf("0) J'entre dans la boucle \n");
-	while (quitGame) {
+	//printf("0) J'entre dans la boucle \n");
+	while (quitGame == 1) {
 		switch (activeWindow) {
-            case 0: //Fenetre Menu principal
+            case 0: //Fenetre Menu principalprintf("là 4");
                 displayMainCheckerMenu(pos, window);
-                while (mainMenu) {
+                while (mainMenu == 1) {
+                    //printf("là 6");
                     while (SDL_PollEvent(&event)) {
                         switch (event.type) {
                             case SDL_KEYDOWN:
                                 switch (event.key.keysym.sym) {
-                                    case SDLK_a:
-                                        displayMainCheckerMenu(0, window);
-                                        break;
                                     case SDLK_b:
                                         mainMenu = 0;
                                         activeWindow = 1;
@@ -89,12 +82,12 @@ int mainChecker(Window *window) {
                                                 // Clique sur commencer partie
                                                 initGame();
                                                 mainMenu = 0;
-                                                activeWindow = 3;
+                                                activeWindow = 1;
                                                 break;
                                             case 2:
                                                 // Clique sur charger partie
                                                 initGame();
-                                                loadGame(saveFile);
+                                                //loadGame(saveFile);
                                                 mainMenu = 0;
                                                 activeWindow = 1;
                                                 break;
@@ -102,6 +95,7 @@ int mainChecker(Window *window) {
                                                 // Clique sur quitter
                                                 mainMenu = 0;
                                                 activeWindow = 9;
+                                                quitGame = 0;
                                                 break;
                                             default:
                                                 break;
@@ -120,37 +114,22 @@ int mainChecker(Window *window) {
                 initWhiteTiles(window);
                 refreshBoard(window);
                 SDL_UpdateWindowSurface(window->window);
-                while (gameWindow) {
+                while (gameWindow == 1) {
                     while (SDL_PollEvent(&event) && !isFinished()) {
                         switch (event.type) {
                             case SDL_MOUSEBUTTONUP:
                                 switch (event.button.button) {
                                     case SDL_BUTTON_LEFT:
-                                        // ASTUCE : Appuyer sur la touche H affiche les pions jouables
-                                        // Mais ce n est pas necessaire si on sait quoi jouer on peut le jouer directement.
                                         if (!player2) { // Tour Joueur 1
                                             noClick = noClick % 2; // Quel click ?
                                             if (noClick == 0) { //Premier click
-                                                /*if (!ongoingTurn) {
-                                                    tour_ia = commencer_tour();
-                                                    ongoingTurn = 1;
-                                                }
-                                                if (!tour_ia) {*/
-                                                    arrC = mouseClick(event); // Recupère les coordonnees du premier click
-                                                    refreshBoard(window);
-                                                    SDL_UpdateWindowSurface(window->window);
-                                                    startTile = getTilePosition(arrC[0], arrC[1], boardGame);
-                                                    int click_ok = highlightPossibleMovesXY(arrC[0], arrC[1]); // Une fois le pion selectionne, cela affiche les deplacements possibles
-                                                    printf("Premier click reussi \n");
-                                                    if (click_ok) {
-                                                        noClick += 1; // On autorise l'acces au deuxieme click
-                                                        highlightControl(arrC);
-                                                    }
-                                                /*} else { // si c'est l'ia qui a joué
-                                                    player2 = 1;
-                                                    ongoingTurn = 0;
-                                                    tour_ia = 0;
-                                                }*/
+                                                arrC = mouseClick(event); // Recupère les coordonnees du premier click
+                                                refreshBoard(window);
+                                                SDL_UpdateWindowSurface(window->window);
+                                                startTile = getTilePosition(arrC[0], arrC[1], boardGame);
+                                                printf("Premier click reussi \n");
+                                                noClick += 1; // On autorise l'acces au deuxieme click
+                                                highlightControl(arrC);
                                                 refreshBoard(window);
                                                 SDL_UpdateWindowSurface(window->window);
                                             } else {
@@ -188,26 +167,13 @@ int mainChecker(Window *window) {
                                             if (player2) { // Tour Joueur 2
                                                 noClick = noClick % 2;
                                                 if (noClick == 0) { //Premier click
-                                                    /*if (!ongoingTurn) {
-                                                        tour_ia = commencer_tour();
-                                                        ongoingTurn = 1;
-                                                    }
-                                                    if (!tour_ia) {*/
-                                                        arrC = mouseClick(event); // Recupère les coordonnees du premier click
-                                                        refreshBoard(window);
-                                                        SDL_UpdateWindowSurface(window->window);
-                                                        startTile = getTilePosition(arrC[0], arrC[1], boardGame);
-                                                        int click_ok = highlightPossibleMovesXY(arrC[0], arrC[1]);
-                                                        printf("Premier click reussi \n");
-                                                        if (click_ok) {
-                                                            noClick += 1;
-                                                            highlightControl(arrC);
-                                                        }
-                                                    /*} else {
-                                                        player2 = 0;
-                                                        ongoingTurn = 0;
-                                                        tour_ia = 0;
-                                                    }*/
+                                                    arrC = mouseClick(event); // Recupère les coordonnees du premier click
+                                                    refreshBoard(window);
+                                                    SDL_UpdateWindowSurface(window->window);
+                                                    startTile = getTilePosition(arrC[0], arrC[1], boardGame);
+                                                    printf("Premier click reussi \n");
+                                                    noClick += 1;
+                                                    highlightControl(arrC);
                                                     refreshBoard(window);
                                                     SDL_UpdateWindowSurface(window->window);
                                                 } else {
@@ -262,11 +228,6 @@ int mainChecker(Window *window) {
                                         activeWindow = 9;
                                         gameWindow = 0;
                                         break;
-                                    case SDLK_h:
-                                        highlightPlayablePawns();
-                                        refreshBoard(window);
-                                        SDL_UpdateWindowSurface(window->window);
-                                        break;
                                     default:
                                         quitGame = 1;
                                         break;
@@ -286,6 +247,7 @@ int mainChecker(Window *window) {
                                     case SDLK_ESCAPE:
                                         pauseMenu = 0;
                                         activeWindow = 9;
+                                        quitGame = 0;
                                         break;
                                     default:
                                         break;
@@ -336,6 +298,7 @@ int mainChecker(Window *window) {
                             switch (event.key.keysym.sym) {
                                 case SDLK_ESCAPE:
                                     activeWindow = 9;
+                                    quitGame = 0;
                                     break;
                                 default:
                                     break;
