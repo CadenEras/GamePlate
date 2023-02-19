@@ -72,17 +72,20 @@ make
 </br>
 </br>
 
-# ⏳ Contributor
+# 👩‍💻 Contributors
 [CadenEras](https://github.com/CadenEras)
 </br>
- - Rôle de la personne
+ - Makefile
+ - Game Checker
+ - Menu
 </br>
 
 [Manganese92](https://github.com/Manganse92) 
 </br>
-- Rôle de la personne
+- Game Tic Tac Toe
+- Readme
 </br>
 
 [eLainez558](https://github.com/eLainez558)
 </br>
- - Rôle de la personne
+ - Game Power 4
