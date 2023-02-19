@@ -5,7 +5,7 @@ GamePlate is written in C and is a simple multiplayer game application. It is de
 </br>
 
 
-# 🔌 Installation SDL2 et Cmake Linux 
+# 🔌 Install SDL2 and Cmake Linux 
 
 sudo apt-get update
 </br>
@@ -17,7 +17,7 @@ sudo apt-get install cmake
 </br>
 </br>
 
-<h3> Dans un dossier séparé </h3>
+<h3> In a separate folder </h3>
 
 git clone https://github.com/libsdl-org/SDL.git -b SDL2
 </br>
@@ -36,7 +36,7 @@ sudo make install
 
 </br>
 
-<h3> Même chose pour SDL2_image en revenant en arrière dans le dossier et autant de fois que necessaire pour toutes les librairies SDL </h3>
+<h3> Same thing for SDL2_image by going back in the folder and as many times as necessary for all SDL2 libraries </h3>
 
 git clone https://github.com/libsdl-org/SDL_image.git -b SDL2_image
 </br>
@@ -59,7 +59,7 @@ sudo make install
 
 # ⏳ Compilation 
 
-<h5>Pour VScode : </h5>
+<h5>For VScode : </h5>
 
 ctrl + maj + p
 cmake configure 
@@ -67,7 +67,7 @@ cmake build
 
 </br>
 
-<h5>en ligne de comandes (terminal) :</h5>
+<h5>commandline(terminal) :</h5>
 
 mkdir build && cd build
 </br>
