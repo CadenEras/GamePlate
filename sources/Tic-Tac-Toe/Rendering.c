@@ -60,36 +60,60 @@ void render_o(SDL_Renderer *renderer,
     const float half_box_side = fmin(CELL_WIDTH, CELL_HEIGHT) * 0.25;
     const float center_x = CELL_WIDTH * 0.5 + column * CELL_WIDTH;
     const float center_y = CELL_HEIGHT * 0.5 + row * CELL_HEIGHT;
+    const int size = 150;
+
+    int halfSize = size / 2;
+    int x1 = center_x - halfSize; // Coin inférieur gauche
+    int y1 = center_y + halfSize;
+    int x2 = center_x; // Sommet supérieur
+    int y2 = center_y - halfSize;
+    int x3 = center_x + halfSize; // Coin inférieur droit
+    int y3 = center_y + halfSize;
+
+    SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+    SDL_RenderDrawLine(renderer, x2, y2, x3, y3);
+    SDL_RenderDrawLine(renderer, x3, y3, x1, y1);
  
     // ************ CIRCLE ************
-    const int radius = 85; // rayon du cercle
-    const float pi = 3.14;
+    // const int radius = 85; // rayon du cercle
+    // const float pi = 3.14;
 
-    for (double angle = 0; angle < pi * 2; angle += 0.01) {
-        int x = center_x + radius * cos(angle);
-        int y = center_y + radius * sin(angle);
-        SDL_RenderDrawPoint(renderer, x, y);
-    }
+    // for (double angle = 0; angle < pi * 2; angle += 0.01) {
+    //     int x = center_x + radius * cos(angle);
+    //     int y = center_y + radius * sin(angle);
+    //     SDL_RenderDrawPoint(renderer, x, y);
+    // }
 
 }
     
-    // ************ TRIANGLE ************
-    // float pi = 3.1
+    // *********** TRIANGLE ************
+    // int size = 150;
 
-    // double angle60 = 60.0 * pi / 180.0;
-    // double angle120 = 120.0 * pi / 180.0;
-
-    // int x1 = (int)round(center_x - half_box_side / 2.0);
-    // int y1 = (int)round(center_y + half_box_side * tan(angle60) / 2.0);
+    // int halfSize = size / 2;
+    // int x1 = center_x - halfSize;
+    // int y1 = center_y + halfSize;
     // int x2 = center_x;
-    // int y2 = (int)round(center_y - half_box_side * sin(angle60) / 2.0);
-    // int x3 = (int)round(center_x + half_box_side / 2.0);
-    // int y3 = (int)round(center_y + half_box_side * tan(angle60) / 2.0);
+    // int y2 = center_y - halfSize;
+    // int x3 = center_x + halfSize;
+    // int y3 = center_y + halfSize;
 
     // SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
     // SDL_RenderDrawLine(renderer, x2, y2, x3, y3);
     // SDL_RenderDrawLine(renderer, x3, y3, x1, y1);
 
+
+    // *********** CROSS ************
+    //     SDL_RenderDrawLine(renderer,
+    //             center_x - half_box_side,
+    //             center_y - half_box_side,
+    //             center_x + half_box_side,
+    //             center_y + half_box_side);
+
+    // SDL_RenderDrawLine(renderer,
+    //             center_x + half_box_side,
+    //             center_y - half_box_side,
+    //             center_x - half_box_side,
+    //             center_y + half_box_side);
 
 
 
