@@ -2,7 +2,7 @@
 #define RENDERING_H_
 
 // rendu du jeu sans modifier son etat
-int render_game(SDL_Renderer *renderer, const game_t *game);
+int render_game(SDL_Renderer *renderer, game_t *game);
 
 //  rendu de la grille de jeu avec une couleur
 void render_grid(SDL_Renderer *renderer, const SDL_Color *color);

@@ -13,8 +13,10 @@
 int main_ttt(Window *window)
 {
     int state = 0;
-    int running = 1;
-
+    int choice = 0;
+    int menu = 1;
+    int pos = 0;
+    int click = 0;
 
     // initialisation du jeu avec les cellules vides
     game_t game = {
@@ -24,7 +26,8 @@ int main_ttt(Window *window)
         // le joueur X commence
         .player = PLAYER_X,
         // le jeu est en cours
-        .state = RUNNING_STATE
+        .state = RUNNING_STATE,
+        .isEnded = 0
     };
 
     // boucle d'événements qui s'arrête quand on clique sur le bouton
@@ -51,24 +54,147 @@ int main_ttt(Window *window)
             }
         }
 
-        while (running == 1){
-            switch(){
-                case 1:
-                    reset_game(&game);
-                    break;
-                case 2:
-                    game.state = QUIT_STATE;
-                    break;
-                default:
-                    break;
-            }
         SDL_SetRenderDrawColor(window->renderer, 0, 0, 0, 255);
         SDL_RenderClear(window->renderer);
         state = render_game(window->renderer, &game);
+        menu = 1;
+        if (game.isEnded == 1) {
+            if (game.state == PLAYER_X_WON_STATE) {
+                displayEndP1TTT(pos, window);
+            } else if (game.state == PLAYER_O_WON_STATE) {
+                displayEndP2TTT(pos, window);
+            } else if (game.state == TIE_STATE) {
+                displayEndTieTTT(pos, window);
+            }
+            while (menu == 1) {
+                while (SDL_PollEvent(&e)) {
+                    if (game.state == PLAYER_X_WON_STATE) {
+                       switch (e.type) {
+                            case SDL_KEYDOWN:
+                                switch (e.key.keysym.sym) {
+                                    case SDLK_ESCAPE:
+                                        menu = 0;
+                                        break;
+                                    default:
+                                        break;
+                                } // Fin switch touche choisi
+                            case SDL_MOUSEMOTION:
+                                pos = mousePositionEndTTT(e);
+                                displayEndP1TTT(pos, window);
+                                break;
+                                // Fin du cas : la souris bouge
+                            case SDL_MOUSEBUTTONUP:
+                                switch (e.button.button) {
+                                case SDL_BUTTON_LEFT:
+                                    click = mouseClickEndTTT(e);
+                                    switch (click) {
+                                        case 1:
+                                            // on replay
+                                            game.isEnded = 0;
+                                            menu = 0;
+                                            break;
+                                        case 2:
+                                            // on sort
+                                            menu = 0;
+                                            game.state = QUIT_STATE;
+                                            break;
+                                        default:
+                                            break;
+                                    } 
+                                    break;
+                                default:
+                                    break;
+                                } 
+                            default:
+                                break;
+                        } 
+                    } else if (game.state == PLAYER_O_WON_STATE) {
+                        switch (e.type) {
+                            case SDL_KEYDOWN:
+                                switch (e.key.keysym.sym) {
+                                    case SDLK_ESCAPE:
+                                        menu = 0;
+                                        break;
+                                    default:
+                                        break;
+                                } // Fin switch touche choisi
+                            case SDL_MOUSEMOTION:
+                                pos = mousePositionEndTTT(e);
+                                displayEndP2TTT(pos, window);
+                                break;
+                                // Fin du cas : la souris bouge
+                            case SDL_MOUSEBUTTONUP:
+                                switch (e.button.button) {
+                                case SDL_BUTTON_LEFT:
+                                    click = mouseClickEndTTT(e);
+                                    switch (click) {
+                                        case 1:
+                                            // on replay
+                                            game.isEnded = 0;
+                                            menu = 0;
+                                            break;
+                                        case 2:
+                                            // on sort
+                                            game.state = QUIT_STATE;
+                                            break;
+                                        default:
+                                            break;
+                                    } 
+                                    break;
+                                default:
+                                    break;
+                                } 
+                            default:
+                                break;
+                        } 
+                    } else if (game.state == TIE_STATE) {
+                        switch (e.type) {
+                            case SDL_KEYDOWN:
+                                switch (e.key.keysym.sym) {
+                                    case SDLK_ESCAPE:
+                                        menu = 0;
+                                        break;
+                                    default:
+                                        break;
+                                } // Fin switch touche choisi
+                            case SDL_MOUSEMOTION:
+                                pos = mousePositionEndTTT(e);
+                                displayEndTieTTT(pos, window);
+                                break;
+                                // Fin du cas : la souris bouge
+                            case SDL_MOUSEBUTTONUP:
+                                switch (e.button.button) {
+                                case SDL_BUTTON_LEFT:
+                                    click = mouseClickEndTTT(e);
+                                    switch (click) {
+                                        case 1:
+                                            // on replay
+                                            game.isEnded = 0;
+                                            menu = 0;
+                                            break;
+                                        case 2:
+                                            // on sort
+                                            game.state = QUIT_STATE;
+                                            break;
+                                        default:
+                                            break;
+                                    } 
+                                    break;
+                                default:
+                                    break;
+                                } 
+                            default:
+                                break;
+                        } 
+                    } 
+                    
+                }
+            }
+        }
+        
         SDL_RenderPresent(window->renderer);
-       }
  
     }
-
+    
     return EXIT_SUCCESS;
 }

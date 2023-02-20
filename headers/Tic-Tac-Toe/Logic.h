@@ -21,6 +21,17 @@ int mouseClickEndTTT(SDL_Event e);
  * @brief Display Main Checker menu.
  * @param choice Choice from the Main Checker menu.
  */
-void displayEndTTT(int state, int choice, Window *window);
+void displayEndP1TTT(int pos, Window *window);
 
+/**
+ * @brief Display Main Checker menu.
+ * @param choice Choice from the Main Checker menu.
+ */
+void displayEndP2TTT(int pos, Window *window);
+
+/**
+ * @brief Display Main Checker menu.
+ * @param choice Choice from the Main Checker menu.
+ */
+void displayEndTieTTT(int pos, Window *window);
 #endif  // LOGIC_H_

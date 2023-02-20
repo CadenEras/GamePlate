@@ -1,6 +1,8 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include <stdbool.h>
+
 #include "../../headers/base/window.h"
 int main_ttt(Window *window);
 
@@ -25,12 +27,15 @@ int main_ttt(Window *window);
 #define TIE_STATE 3
 #define QUIT_STATE 4
 
+#define ISENDED 0
+
 
 // structure qui contient les informations du jeu
 typedef struct {
     int board[N * N];
     int player;
     int state;
+    int isEnded;
 } game_t;
 
 #endif  // GAME_H_ 
