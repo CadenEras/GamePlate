@@ -1,7 +1,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include "../../headers/base/window.h"
+#include "./../base/window.h"
 int main_ttt(Window *window);
 
 // macro pour creer la grille de jeu

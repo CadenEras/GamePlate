@@ -48,7 +48,7 @@ int mainChecker(Window *window) {
 	//printf("0) J'entre dans la boucle \n");
 	while (quitGame == 1) {
 		switch (activeWindow) {
-            case 0: //Fenetre Menu principalprintf("là 4");
+            case 0: //Fenetre Menu principal
                 displayMainCheckerMenu(pos, window);
                     //printf("là 6");
                     while (SDL_PollEvent(&event)) {
