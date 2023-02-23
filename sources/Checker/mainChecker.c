@@ -50,7 +50,6 @@ int mainChecker(Window *window) {
 		switch (activeWindow) {
             case 0: //Fenetre Menu principalprintf("là 4");
                 displayMainCheckerMenu(pos, window);
-                while (mainMenu == 1) {
                     //printf("là 6");
                     while (SDL_PollEvent(&event)) {
                         switch (event.type) {
@@ -108,13 +107,12 @@ int mainChecker(Window *window) {
                                 break;
                         }//Fin switch event.type
                     }//Fin while PollEvent
-                }
+                
                 break;
             case 1: //Fenetre Jeu
                 initWhiteTiles(window);
                 refreshBoard(window);
                 SDL_UpdateWindowSurface(window->window);
-                while (gameWindow == 1) {
                     while (SDL_PollEvent(&event) && !isFinished()) {
                         switch (event.type) {
                             case SDL_MOUSEBUTTONUP:
@@ -235,11 +233,9 @@ int mainChecker(Window *window) {
                                 break;
                         }//Fin switch.type
                     }//Fin PollEvent
-                }
                 break;
             case 2: //Fentre Menu Pause
                 displayPauseCheckerScreen(posPause, window);
-                while (pauseMenu) {
                     while (SDL_PollEvent(&event)) {
                         switch (event.type) {
                             case SDL_KEYDOWN:
@@ -259,7 +255,6 @@ int mainChecker(Window *window) {
                                 switch (event.button.button) {
                                     case SDL_BUTTON_LEFT:
                                         click = mouseClickPause(event);
-                                        printf("click souris = %d \n", click);
                                         switch (click) {
                                             case 1:
                                                 saveGame(saveFile);
@@ -284,7 +279,6 @@ int mainChecker(Window *window) {
                                 break;
                         }//Fin switch event.type
                     }
-                }
                 break;
             case 3: // Fin de partie
                 if (isFinished() == 1) {
@@ -317,6 +311,10 @@ int mainChecker(Window *window) {
 	printf("11) Fin du test \n");
 	free(arrC);
 	free(arrC2);
+    free(oldCase);
+    free(newCase);
+    free(endTurn);
+    free(playerTurn);
 
 	return 0;
 }
